@@ -8,7 +8,7 @@ const createCouponSlice: StateCreator<
     HabitState
 > = (set) => ({
     addHabitDrawerOpen: false,
-    openHabitDrawer: (val: boolean) => {
+    openAddHabitDrawer: (val: boolean) => {
         set({ addHabitDrawerOpen: val });
     }
 });
