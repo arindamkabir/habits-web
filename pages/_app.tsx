@@ -27,7 +27,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
           enableSystem
           disableTransitionOnChange
         >
-          <main className={`${poppins.className} min-h-screen`} data-theme="dark">
+          <main className={`${poppins.className} min-h-screen max-w-7xl mx-auto py-10`} data-theme="dark">
             <Component {...pageProps} />
           </main>
         </ThemeProvider>
