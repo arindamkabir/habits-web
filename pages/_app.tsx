@@ -8,9 +8,19 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['200', '400', '500', '600', '700'], variable: '--font-poppins' });
 
+const staleTimeInMs = 1000 * 60 * 30; // 30 mins
+
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: { queries: { staleTime: 40000 } }
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        staleTime: staleTimeInMs // 30 mins
+      }
+    }
   }));
 
   return (
@@ -27,7 +37,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
           enableSystem
           disableTransitionOnChange
         >
-          <main className={`${poppins.className} min-h-screen max-w-7xl mx-auto py-10`} data-theme="dark">
+          <main className={`${poppins.className}`} data-theme="dark">
             <Component {...pageProps} />
           </main>
         </ThemeProvider>

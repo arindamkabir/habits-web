@@ -7,6 +7,8 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns
 import { IHabit, IHabitWithEntries } from '@/types/habit/Habit';
 import HabitDateInputModal from '@/components/dashboard/habit-date-input-modal';
 import HabitPopover from '@/components/dashboard/habit-popover';
+import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
+import DashboardLayout from '@/components/layouts/DashboardLayout';
 
 const habits: IHabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
     const currentDate = new Date();
@@ -49,6 +51,7 @@ const habits: IHabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
 const DashboardPage = () => {
     const addHabitDrawerOpen = useBoundedStore(state => state.addHabitDrawerOpen);
     const openAddHabitDrawer = useBoundedStore(state => state.openAddHabitDrawer);
+    const openAddCategoryDrawer = useBoundedStore(state => state.openAddCategoryDrawer);
     const openHabitDateInputModal = useBoundedStore(state => state.openHabitDateInputModal);
     const setSelectedHabitToInput = useBoundedStore(state => state.setSelectedHabitToInput);
 
@@ -67,9 +70,9 @@ const DashboardPage = () => {
     }
 
     return (
-        <>
+        <DashboardLayout>
             <div className="flex justify-end w-full">
-                <Button onClick={() => openAddHabitDrawer(true)}>Add Habit</Button>
+                <Button onClick={() => openAddCategoryDrawer(true)}>Add Habit</Button>
             </div>
 
             <div className='flex justify-center items-center space-x-8 mb-16'>
@@ -135,8 +138,9 @@ const DashboardPage = () => {
             </div>
 
             <AddHabitDrawer />
+            <AddCategoryDrawer />
             <HabitDateInputModal />
-        </>
+        </DashboardLayout>
     )
 }
 
