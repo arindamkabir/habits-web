@@ -14,6 +14,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useLogin } from "@/hooks/mutations/auth/use-login"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -31,9 +32,16 @@ const LoginForm = () => {
         },
     })
 
+    const { mutate, isPending, } = useLogin();
+
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+        console.log(values);
+        mutate({ email: values.email, password: values.password, shouldRemember: true });
     }
+
+
+    // const watchedShouldRemember = watch('shouldRemember');
+
 
     return (
         <Form {...form}>
@@ -64,7 +72,7 @@ const LoginForm = () => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Enter</Button>
+                <Button type="submit" loading={isPending}>Enter</Button>
             </form>
         </Form>
     )
