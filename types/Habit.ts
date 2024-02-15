@@ -1,5 +1,5 @@
-import { IHabitCategory } from "./HabitCategory"
-import { IHabitEntry } from "./HabitEntry"
+import { IHabitCategory } from "./Category"
+import { IHabitEntry } from "./Entry"
 
 export type IHabit = {
     id: number

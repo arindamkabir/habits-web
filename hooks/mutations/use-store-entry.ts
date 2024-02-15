@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import { IErrorResponse } from "@/types/Error";
-import { IHabit } from "@/types/habit/Habit";
+import { IHabit } from "@/types/Habit";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { UseFormSetError } from "react-hook-form";

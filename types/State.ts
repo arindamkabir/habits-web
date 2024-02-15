@@ -1,4 +1,4 @@
-import { IHabit } from "./habit/Habit";
+import { IHabit } from "./Habit";
 
 export type HabitState = {
     addHabitDrawerOpen: boolean;

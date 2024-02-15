@@ -18,7 +18,7 @@ const createHabit = async (data: IHabitRequest) => {
     return response;
 }
 
-export const useCreateHabit = (setError: UseFormSetError<IHabitRequest>, onSuccess: () => void) => {
+export const useCreateHabit = (onSuccess: () => void) => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
@@ -30,11 +30,7 @@ export const useCreateHabit = (setError: UseFormSetError<IHabitRequest>, onSucce
             onSuccess();
         },
         onError: (err) => {
-            if (err.response?.status === 422 && err.response.data?.errors) {
-                for (const [key, value] of Object.entries(err.response.data?.errors)) {
-                    setError(key as keyof IHabitRequest, { type: "custom", message: value[0] });
-                }
-            }
+            console.log(err);
         }
     });
 }

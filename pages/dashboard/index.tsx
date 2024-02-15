@@ -4,7 +4,7 @@ import useAppStore from '@/store/store'
 import { Fragment, useMemo, useState } from 'react';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns';
-import { IHabit, IHabitWithEntries } from '@/types/habit/Habit';
+import { IHabit, IHabitWithEntries } from '@/types/Habit';
 import HabitDateInputModal from '@/components/dashboard/habit-date-input-modal';
 import HabitPopover from '@/components/dashboard/habit-popover';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
@@ -49,9 +49,7 @@ const habits: IHabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
 });
 
 const DashboardPage = () => {
-    const addHabitDrawerOpen = useAppStore(state => state.addHabitDrawerOpen);
     const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
-    const openAddCategoryDrawer = useAppStore(state => state.openAddCategoryDrawer);
     const openHabitDateInputModal = useAppStore(state => state.openHabitDateInputModal);
     const setSelectedHabitToInput = useAppStore(state => state.setSelectedHabitToInput);
 
@@ -62,7 +60,10 @@ const DashboardPage = () => {
     }), [currentWeek]);
 
     const getSquareColor = (habit: IHabitWithEntries, date: Date) => {
-        const entry = habit.entries.find(entry => format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+        const entry = habit.entries.find(
+            entry =>
+                format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+        );
         if (entry) {
             return entry.entry > 0 ? '#dc2626' : `${habit.category.color}`;
         }
@@ -72,7 +73,7 @@ const DashboardPage = () => {
     return (
         <DashboardLayout>
             <div className="flex justify-end w-full">
-                <Button onClick={() => openAddCategoryDrawer(true)}>Add Habit</Button>
+                <Button onClick={() => openAddHabitDrawer(true)}>Add Habit</Button>
             </div>
 
             <div className='flex justify-center items-center space-x-8 mb-16'>
