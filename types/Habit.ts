@@ -1,5 +1,5 @@
-import { IHabitCategory } from "./Category"
-import { IHabitEntry } from "./Entry"
+import { ICategory } from "./Category"
+import { IEntry } from "./Entry"
 
 export type IHabit = {
     id: number
@@ -9,7 +9,7 @@ export type IHabit = {
     total_missed: number,
     total_missed_last_week: number,
     category_id: string,
-    category: IHabitCategory,
+    category: ICategory,
     entry_type: "number" | "boolean",
     user_id: number,
     updated_at: string,
@@ -17,6 +17,6 @@ export type IHabit = {
 };
 
 export type IHabitWithEntries = IHabit & {
-    entries: IHabitEntry[]
+    entries: IEntry[]
 }
 
