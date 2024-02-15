@@ -1,6 +1,6 @@
 import AddHabitDrawer from '@/components/dashboard/add-habit-drawer'
 import { Button } from '@/components/ui/button'
-import useBoundedStore from '@/store/store'
+import useAppStore from '@/store/store'
 import { Fragment, useMemo, useState } from 'react';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns';
@@ -49,11 +49,11 @@ const habits: IHabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
 });
 
 const DashboardPage = () => {
-    const addHabitDrawerOpen = useBoundedStore(state => state.addHabitDrawerOpen);
-    const openAddHabitDrawer = useBoundedStore(state => state.openAddHabitDrawer);
-    const openAddCategoryDrawer = useBoundedStore(state => state.openAddCategoryDrawer);
-    const openHabitDateInputModal = useBoundedStore(state => state.openHabitDateInputModal);
-    const setSelectedHabitToInput = useBoundedStore(state => state.setSelectedHabitToInput);
+    const addHabitDrawerOpen = useAppStore(state => state.addHabitDrawerOpen);
+    const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
+    const openAddCategoryDrawer = useAppStore(state => state.openAddCategoryDrawer);
+    const openHabitDateInputModal = useAppStore(state => state.openHabitDateInputModal);
+    const setSelectedHabitToInput = useAppStore(state => state.setSelectedHabitToInput);
 
     const [currentWeek, setCurrentWeek] = useState<number>(0);
     const daysOfWeek = useMemo(() => eachDayOfInterval({

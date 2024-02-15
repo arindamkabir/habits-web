@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useCreateCategory } from "@/hooks/mutations/use-store-category"
-import useBoundedStore from "@/store/store"
+import useAppStore from "@/store/store"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "This field has to be filled." }),
@@ -24,7 +24,7 @@ const formSchema = z.object({
 })
 
 const AddCategoryForm = () => {
-    const openAddCategoryDrawer = useBoundedStore(state => state.openAddCategoryDrawer);
+    const openAddCategoryDrawer = useAppStore(state => state.openAddCategoryDrawer);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),

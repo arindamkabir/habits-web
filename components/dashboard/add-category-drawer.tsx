@@ -1,10 +1,10 @@
 import FormDrawer from '@/components/ui/form-drawer'
-import useBoundedStore from '@/store/store';
+import useAppStore from '@/store/store';
 import AddCategoryForm from './forms/add-category-form';
 
 const AddCategoryDrawer = () => {
-    const addCategoryDrawerOpen = useBoundedStore(state => state.addCategoryDrawerOpen);
-    const openAddCategoryDrawer = useBoundedStore(state => state.openAddCategoryDrawer);
+    const addCategoryDrawerOpen = useAppStore(state => state.addCategoryDrawerOpen);
+    const openAddCategoryDrawer = useAppStore(state => state.openAddCategoryDrawer);
 
     return (
         <FormDrawer
