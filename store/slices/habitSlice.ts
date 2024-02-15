@@ -8,6 +8,7 @@ const createCouponSlice: StateCreator<
     HabitState
 > = (set) => ({
     addHabitDrawerOpen: false,
+    addCategoryDrawerOpen: false,
     habitDateInputModalOpen: false,
     selectedHabitToInput: null,
     openAddHabitDrawer: (val: boolean) => {
@@ -15,6 +16,9 @@ const createCouponSlice: StateCreator<
     },
     openHabitDateInputModal: (val: boolean) => {
         set({ habitDateInputModalOpen: val });
+    },
+    openAddCategoryDrawer: (val: boolean) => {
+        set({ addCategoryDrawerOpen: val });
     },
     setSelectedHabitToInput: (habit, date) => {
         set({ selectedHabitToInput: { ...habit, date: date } });

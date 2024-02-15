@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useCreateCategory } from "@/hooks/mutations/use-store-category"
+import useBoundedStore from "@/store/store"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "This field has to be filled." }),
@@ -22,21 +24,31 @@ const formSchema = z.object({
 })
 
 const AddCategoryForm = () => {
+    const openAddCategoryDrawer = useBoundedStore(state => state.openAddCategoryDrawer);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
             color: ""
         },
-    })
+    });
+
+    const { mutate, isPending } = useCreateCategory(
+        () => {
+            // toast("Habit category added.");
+            openAddCategoryDrawer(false);
+        }
+    );
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+        console.log(values);
+        mutate(values);
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                     control={form.control}
                     name="name"
@@ -44,7 +56,7 @@ const AddCategoryForm = () => {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Habit Name" {...field} />
+                                <Input placeholder="Category Name" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -63,7 +75,7 @@ const AddCategoryForm = () => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Save</Button>
+                <Button type="submit" loading={isPending}>Save</Button>
             </form>
         </Form>
     )

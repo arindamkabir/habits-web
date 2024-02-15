@@ -16,7 +16,7 @@ const createCategory = async (data: IStoreCategoryRequest) => {
     return response;
 }
 
-export const useCreateHabitCategory = (setError: UseFormSetError<IStoreCategoryRequest>, onSuccess: () => void) => {
+export const useCreateCategory = (onSuccess: () => void) => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
@@ -28,11 +28,11 @@ export const useCreateHabitCategory = (setError: UseFormSetError<IStoreCategoryR
             onSuccess();
         },
         onError: (err) => {
-            if (err.response?.status === 422 && err.response.data?.errors) {
-                for (const [key, value] of Object.entries(err.response.data?.errors)) {
-                    setError(key as keyof IStoreCategoryRequest, { type: "custom", message: value[0] });
-                }
-            }
+            // if (err.response?.status === 422 && err.response.data?.errors) {
+            //     for (const [key, value] of Object.entries(err.response.data?.errors)) {
+            //         setError(key as keyof IStoreCategoryRequest, { type: "custom", message: value[0] });
+            //     }
+            // }
         }
     });
 }
