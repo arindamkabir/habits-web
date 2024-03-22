@@ -1,10 +1,10 @@
-type PaginationLinks = {
+export type PaginationLinks = {
     url: string | null;
     label: string;
     active: boolean;
 }
 
-type PaginatedResponse<T> = {
+export type PaginatedResponse<T> = {
     current_page: number;
     data: T[];
     first_page_url: string;

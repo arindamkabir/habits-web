@@ -1,4 +1,4 @@
-import { IHabit } from "./Habit";
+import { Habit } from "./Habit";
 
 export type MiscState = {
     loading: boolean;
@@ -10,11 +10,15 @@ export type HabitState = {
     addHabitDrawerOpen: boolean;
     addCategoryDrawerOpen: boolean;
     habitDateInputModalOpen: boolean;
-    selectedHabitToInput: IHabit & { date: string } | null;
+    selectedHabitToInput: Habit & { date: string } | null;
+    habitListQueryParams: {
+        search: string;
+    };
     openAddHabitDrawer: (val: boolean) => void;
     openAddCategoryDrawer: (val: boolean) => void;
     openHabitDateInputModal: (val: boolean) => void;
-    setSelectedHabitToInput: (habit: IHabit, date: string) => void;
+    setSelectedHabitToInput: (habit: Habit, date: string) => void;
+    setHabitListSearch: (search: string) => void;
     resetHabitState: () => void;
 }
 

@@ -1,4 +1,4 @@
-export type IEntry = {
+export type Entry = {
     id: number;
     entry: number;
     habit_id: number;

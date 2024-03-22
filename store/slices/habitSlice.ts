@@ -6,6 +6,9 @@ const initialState = {
     addCategoryDrawerOpen: false,
     habitDateInputModalOpen: false,
     selectedHabitToInput: null,
+    habitListQueryParams: {
+        search: ""
+    }
 };
 
 const createHabitSlice: StateCreator<
@@ -26,6 +29,16 @@ const createHabitSlice: StateCreator<
     },
     setSelectedHabitToInput: (habit, date) => {
         set({ selectedHabitToInput: { ...habit, date: date } });
+    },
+    setHabitListSearch: (search) => {
+        set((state) => {
+            return {
+                habitListQueryParams: {
+                    ...state.habitListQueryParams,
+                    search: search
+                }
+            };
+        });
     },
     resetHabitState() {
         set((state) => initialState);

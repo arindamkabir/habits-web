@@ -4,13 +4,13 @@ import useAppStore from '@/store/store'
 import { Fragment, useMemo, useState } from 'react';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns';
-import { IHabit, IHabitWithEntries } from '@/types/Habit';
+import { HabitWithEntries } from '@/types/Habit';
 import HabitDateInputModal from '@/components/dashboard/habit-date-input-modal';
 import HabitPopover from '@/components/dashboard/habit-popover';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 
-const habits: IHabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
+const habits: HabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
     const currentDate = new Date();
     return {
         id: i + 1,
@@ -59,7 +59,7 @@ const DashboardPage = () => {
         end: add(endOfWeek(new Date(), { weekStartsOn: 0 }), { days: currentWeek * 7 }),
     }), [currentWeek]);
 
-    const getSquareColor = (habit: IHabitWithEntries, date: Date) => {
+    const getSquareColor = (habit: HabitWithEntries, date: Date) => {
         const entry = habit.entries.find(
             entry =>
                 format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
