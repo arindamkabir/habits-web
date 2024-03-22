@@ -1,6 +1,7 @@
 import axios from "@/lib/axios";
-import { IErrorResponse } from "@/types/Error";
-import { useMutation } from '@tanstack/react-query';
+import useAppStore from "@/store/store";
+import { ErrorResponse } from "@/types/Error";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { UseFormSetError } from "react-hook-form";
@@ -12,10 +13,14 @@ const logout = async () => {
 
 export const useLogout = () => {
     const router = useRouter();
+    const queryClient = useQueryClient();
+    const clearStore = useAppStore(state => state.clearStore);
 
-    return useMutation<any, AxiosError<IErrorResponse>>({
+    return useMutation<any, AxiosError<ErrorResponse>>({
         mutationFn: logout,
         onSuccess: (res) => {
+            queryClient.clear();
+            clearStore();
             router.push('/');
         },
         onError: (err) => {

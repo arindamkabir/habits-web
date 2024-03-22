@@ -1,19 +1,21 @@
 import axios from "@/lib/axios";
 import { useQuery } from '@tanstack/react-query';
-import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useLogout } from "./mutations/auth/use-logout";
+import { User } from "@/types/User";
+import useAppStore from "@/store/store";
 
+export type UserShowResponse = User;
 
-const fetchUser = async () => {
+const fetchUser = async (): Promise<UserShowResponse> => {
     const response = await axios.get('/api/user');
-    console.log(response)
     return response.data;
-}
+};
 
 export const useAuth = (middleware: "guest" | "auth") => {
     const router = useRouter();
+    const setLoading = useAppStore(state => state.setLoading);
 
     const { data: user, isPending, isError } = useQuery({
         queryKey: ['user'],
@@ -21,6 +23,11 @@ export const useAuth = (middleware: "guest" | "auth") => {
     });
 
     const { mutate: logout, isPending: isLogoutPending } = useLogout();
+
+    useEffect(() => {
+        if (setLoading)
+            setLoading(isLogoutPending);
+    }, [setLoading, isLogoutPending]);
 
     useEffect(() => {
         if (middleware === "guest" && user) {

@@ -1,16 +1,20 @@
 import { BoundedState, HabitState } from "@/types/State";
 import { StateCreator } from "zustand";
 
-const createCouponSlice: StateCreator<
+const initialState = {
+    addHabitDrawerOpen: false,
+    addCategoryDrawerOpen: false,
+    habitDateInputModalOpen: false,
+    selectedHabitToInput: null,
+};
+
+const createHabitSlice: StateCreator<
     BoundedState,
     [],
     [],
     HabitState
 > = (set) => ({
-    addHabitDrawerOpen: false,
-    addCategoryDrawerOpen: false,
-    habitDateInputModalOpen: false,
-    selectedHabitToInput: null,
+    ...initialState,
     openAddHabitDrawer: (val: boolean) => {
         set({ addHabitDrawerOpen: val });
     },
@@ -22,7 +26,10 @@ const createCouponSlice: StateCreator<
     },
     setSelectedHabitToInput: (habit, date) => {
         set({ selectedHabitToInput: { ...habit, date: date } });
+    },
+    resetHabitState() {
+        set((state) => initialState);
     }
 });
 
-export default createCouponSlice;
+export default createHabitSlice;

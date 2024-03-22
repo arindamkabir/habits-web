@@ -1,47 +1,92 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/hooks/use-auth";
+import Sidebar from "./Navigation/Sidebar";
+import { Toaster } from "../ui/sonner";
+import Head from "next/head";
+import DashboardHeader from "./DashboardHeader";
+import PageLoader from "../ui/page-loader";
+import useAppStore from "@/store/store";
 
 type DashboardLayoutProps = {
-    children: React.ReactNode
+    header?: string;
+    children: React.ReactNode;
 }
 
-const DashboardLayout = ({ children }: DashboardLayoutProps) => {
-    const router = useRouter();
-
-    const { user, isPending, logout } = useAuth("auth");
-
-    // const [theme, setTheme] = useState<"dark" | "lofi">("dark");
-
-    // // update state on toggle
-    // const handleToggle = (checked: boolean) => {
-    //     if (checked) {
-    //         setTheme("lofi");
-    //     } else {
-    //         setTheme("dark");
-    //     }
-    // };
-
-    // // set theme state in localstorage on mount & also update localstorage on state change
-    // useEffect(() => {
-    //     localStorage.setItem("theme", theme);
-    //     const localTheme = localStorage.getItem("theme");
-    //     // add custom data-theme attribute to html tag required to update theme using DaisyUI
-    //     if (localTheme)
-    //         document.documentElement.setAttribute("data-theme", localTheme);
-    // }, [theme]);
+const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
+    const loading = useAppStore(state => state.loading);
+    const { user, isPending } = useAuth("auth");
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
         <>
+            <Head>
+                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+                <link rel="manifest" href="/favicon/site.webmanifest" />
+            </Head>
             {
-                (!user || isPending)
+                (!user || isPending || loading)
                     ?
-                    <main className="flex h-screen w-screen justify-center items-center">
-                        <span className="loading loading-infinity loading-lg"></span>
-                    </main>
+                    <PageLoader />
                     :
-                    <div className="min-h-screen max-w-7xl mx-auto py-10">
-                        {children}
-                    </div>
+                    <>
+                        <div className="min-h-screen">
+                            <nav className="bg-white border-b border-gray-100 dark:bg-gray-950 dark:border-gray-700">
+                                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' md:hidden'}>
+                                    <div className="pt-2 pb-3 space-y-1">
+                                        {/* <ResponsiveNavLink href="/dashboard" active={router.pathname === '/dashboard'}>
+                                    Dashboard
+                                </ResponsiveNavLink> */}
+                                    </div>
+
+                                    <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                                        <div className="px-4">
+                                            <div className="text-base font-medium text-gray-800 dark:text-gray-200">
+                                                {/* {user.name} */}
+                                            </div>
+                                            {/* <div className="text-sm font-medium text-gray-500">arindamkabir@gmail.com</div> */}
+                                        </div>
+
+                                        {/* <div className="mt-3 space-y-1">
+                                    <ResponsiveNavLink href="/">Profile</ResponsiveNavLink>
+                                    <ResponsiveNavButton onClick={logout}>
+                                        Log Out
+                                    </ResponsiveNavButton>
+                                </div> */}
+                                    </div>
+                                </div>
+                            </nav>
+
+
+
+                            <div className="flex flex-col w-full overflow-y-hidden md:flex-row md:h-screen">
+                                <Sidebar />
+
+                                <div className="flex-auto w-full overflow-y-auto flex flex-col justify-between h-full">
+                                    <div>
+                                        <div className="">
+                                            <div className="flex items-center justify-between">
+                                                <DashboardHeader header={header} user={user} />
+                                            </div>
+                                        </div>
+                                        <div className="px-2 py-10 sm:px-2 md:px-6 lg:px-12 xl:px-20">
+                                            {children}
+                                        </div>
+                                    </div>
+
+
+                                    <div
+                                        className="flex justify-between px-2 py-4 sm:px-2 md:px-6 lg:px-12 xl:px-20">
+                                        <p className="text-xs text-gray-400">All rights reserved.</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <Toaster />
+                    </>
             }
         </>
     )

@@ -25,7 +25,7 @@ export default function FormDrawer({ open, onClose, title, children, drawerScoll
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Dialog.Overlay className="absolute inset-0 blur-lg bg-zinc-500 bg-opacity-5 transition-opacity" />
+                        <Dialog.Overlay className="absolute inset-0 blur-lg bg-gray-400 bg-opacity-60 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
@@ -39,7 +39,7 @@ export default function FormDrawer({ open, onClose, title, children, drawerScoll
                             leaveTo="translate-x-full"
                         >
                             <div className="w-screen max-w-md">
-                                <div className="h-full flex flex-col py-6 bg-zinc-950 shadow-xl overflow-y-scroll" id={drawerScollableDivID ?? undefined}>
+                                <div className="h-full flex flex-col py-6 bg-gray-50 dark:bg-gray-950 shadow-xl overflow-y-scroll" id={drawerScollableDivID ?? undefined}>
                                     <div className="px-4 sm:px-6">
                                         <div className="flex items-start justify-between">
                                             <Dialog.Title className="text-lg font-medium ">{title}</Dialog.Title>
