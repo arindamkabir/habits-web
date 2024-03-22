@@ -14,7 +14,6 @@ export type IHabitRequest = {
 
 const createHabit = async (data: IHabitRequest) => {
     const response = await axios.post('/api/habits/', data);
-    console.log(response);
     return response;
 }
 
@@ -25,12 +24,11 @@ export const useCreateHabit = (onSuccess: () => void) => {
     return useMutation<any, AxiosError<IErrorResponse>, IHabitRequest>({
         mutationFn: createHabit,
         onSuccess: (res) => {
-            // router.push('dashboard');
             queryClient.invalidateQueries({ queryKey: ['habits'] })
             onSuccess();
         },
-        onError: (err) => {
-            console.log(err);
-        }
+        // onError: (err) => {
+        //     console.log(err);
+        // }
     });
 }

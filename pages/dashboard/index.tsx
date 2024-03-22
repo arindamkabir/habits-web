@@ -1,4 +1,3 @@
-import AddHabitDrawer from '@/components/dashboard/add-habit-drawer'
 import { Button } from '@/components/ui/button'
 import useAppStore from '@/store/store'
 import { Fragment, useMemo, useState } from 'react';
@@ -9,6 +8,7 @@ import HabitDateInputModal from '@/components/dashboard/habit-date-input-modal';
 import HabitPopover from '@/components/dashboard/habit-popover';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawer';
 
 const habits: HabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
     const currentDate = new Date();
