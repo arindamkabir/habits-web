@@ -18,11 +18,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { useCreateHabit } from "@/hooks/mutations/use-store-habit"
 import useAppStore from "@/store/store"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
-import { cn } from "@/utils/shadcn"
 import { useGetAllCategories } from "@/hooks/queries/use-get-all-categories"
+import { toast } from "sonner"
+import CategorySelect from "../../categories/CategorySelect"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "This field has to be filled." }),
@@ -49,8 +47,8 @@ const AddHabitForm = () => {
 
     const { mutate, isPending: isCreating } = useCreateHabit(
         () => {
-            // toast("Habit category added.");
             openAddHabitDrawer(false);
+            toast.success("Product added successfully.");
         }
     );
 
@@ -87,78 +85,20 @@ const AddHabitForm = () => {
                         </FormItem>
                     )}
                 />
-                {(isCategoriesPending || !categoriesData) ? "Loading..." : (
-                    <FormField
-                        control={form.control}
-                        name="category_id"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Category</FormLabel>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <FormControl>
-                                            <Button
-                                                variant="outline"
-                                                role="combobox"
-                                                className={cn(
-                                                    "w-full justify-between",
-                                                    !field.value && "text-muted-foreground"
-                                                )}
-                                            >
-                                                {field.value
-                                                    ? categoriesData.find(
-                                                        (category) => category.id === field.value
-                                                    )?.name
-                                                    : "Select category"}
-                                                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                            </Button>
-                                        </FormControl>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="p-0" side="bottom" align="center">
-                                        <Command>
-                                            <CommandInput
-                                                placeholder="Search categories..."
-                                                className="h-9"
-                                            />
-                                            <CommandEmpty>No category found.</CommandEmpty>
-                                            <CommandGroup>
-                                                {categoriesData.map((category) => (
-                                                    <CommandItem
-                                                        value={category.name}
-                                                        key={category.id}
-                                                        onSelect={() => {
-                                                            form.setValue("category_id", category.id)
-                                                        }}
-                                                    >
-                                                        {category.name}
-                                                        <CheckIcon
-                                                            className={cn(
-                                                                "ml-auto h-4 w-4",
-                                                                category.id === field.value
-                                                                    ? "opacity-100"
-                                                                    : "opacity-0"
-                                                            )}
-                                                        />
-                                                    </CommandItem>
-                                                ))}
-                                                <span className="w-full flex justify-center py-1.5">
-                                                    <Button variant="link" onClick={() => {
-                                                        // openAddHabitDrawer(false);
-                                                        openAddCategoryDrawer(true);
-                                                    }}>
-                                                        Create new category
-                                                    </Button>
-                                                </span>
-                                            </CommandGroup>
-                                        </Command>
-                                    </PopoverContent>
-                                </Popover>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                )}
-
+                <FormField
+                    control={form.control}
+                    name="category_id"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Category</FormLabel>
+                            <CategorySelect
+                                value={field.value}
+                                onSelect={(value) => form.setValue("category_id", value)}
+                            />
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
                 <FormField
                     control={form.control}
