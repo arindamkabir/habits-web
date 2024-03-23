@@ -19,7 +19,7 @@ import { useStoreHabit } from "@/hooks/mutations/use-store-habit"
 import useAppStore from "@/store/store"
 import { useGetAllCategories } from "@/hooks/queries/use-get-all-categories"
 import { toast } from "sonner"
-import CategorySelect from "../cateogry-select"
+import CategorySelect from "../category-select"
 import { storeHabitSchema } from "@/schemas/habit/store-habit"
 
 const AddHabitForm = () => {

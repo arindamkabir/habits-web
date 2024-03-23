@@ -1,14 +1,19 @@
 import { BoundedState, HabitState } from "@/types/State";
+import { add, eachDayOfInterval, endOfWeek, startOfWeek } from "date-fns";
 import { StateCreator } from "zustand";
 
 const initialState = {
     addHabitDrawerOpen: false,
     addCategoryDrawerOpen: false,
-    habitDateInputModalOpen: false,
-    selectedHabitToInput: null,
+    addEntryModalOpen: false,
+    selectedHabitToEntry: null,
     habitListQueryParams: {
         search: ""
-    }
+    },
+    showingDates: eachDayOfInterval({
+        start: startOfWeek(new Date(), { weekStartsOn: 0 }),
+        end: endOfWeek(new Date(), { weekStartsOn: 0 }),
+    }),
 };
 
 const createHabitSlice: StateCreator<
@@ -21,14 +26,14 @@ const createHabitSlice: StateCreator<
     openAddHabitDrawer: (val: boolean) => {
         set({ addHabitDrawerOpen: val });
     },
-    openHabitDateInputModal: (val: boolean) => {
-        set({ habitDateInputModalOpen: val });
+    openAddEntryModal: (val: boolean) => {
+        set({ addEntryModalOpen: val });
     },
     openAddCategoryDrawer: (val: boolean) => {
         set({ addCategoryDrawerOpen: val });
     },
-    setSelectedHabitToInput: (habit, date) => {
-        set({ selectedHabitToInput: { ...habit, date: date } });
+    setSelectedHabitToEntry: (habit, date) => {
+        set({ selectedHabitToEntry: { ...habit, date: date } });
     },
     setHabitListSearch: (search) => {
         set((state) => {
@@ -39,6 +44,9 @@ const createHabitSlice: StateCreator<
                 }
             };
         });
+    },
+    setShowingDates(dates) {
+        set({ showingDates: dates });
     },
     resetHabitState() {
         set((state) => initialState);

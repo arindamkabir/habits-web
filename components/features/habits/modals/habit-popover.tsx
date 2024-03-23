@@ -1,9 +1,9 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { IHabitWithEntries } from '@/types/Habit';
+import { HabitWithEntries } from '@/types/Habit';
 import { Button } from '@/components/ui/button';
 
 type HabitPopoverProps = {
-    habit: IHabitWithEntries
+    habit: HabitWithEntries
 }
 
 const HabitPopover = ({ habit }: HabitPopoverProps) => {

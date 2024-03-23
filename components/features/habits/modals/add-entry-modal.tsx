@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/dialog";
 import useAppStore from "@/store/store";
 
-const HabitDateInputModal = () => {
-    const habitDateInputModalOpen = useAppStore(state => state.habitDateInputModalOpen);
-    const openHabitDateInputModal = useAppStore(state => state.openHabitDateInputModal);
+const AddEntryModal = () => {
+    const addEntryModalOpen = useAppStore(state => state.addEntryModalOpen);
+    const openAddEntryModal = useAppStore(state => state.openAddEntryModal);
 
     return (
-        <Dialog open={habitDateInputModalOpen} onOpenChange={openHabitDateInputModal}>
+        <Dialog open={addEntryModalOpen} onOpenChange={openAddEntryModal}>
             {/* <DialogTrigger></DialogTrigger> */}
             <DialogContent>
                 <DialogHeader>
@@ -28,4 +28,4 @@ const HabitDateInputModal = () => {
     )
 }
 
-export default HabitDateInputModal;
+export default AddEntryModal;

@@ -9,18 +9,20 @@ export type MiscState = {
 export type HabitState = {
     addHabitDrawerOpen: boolean;
     addCategoryDrawerOpen: boolean;
-    habitDateInputModalOpen: boolean;
-    selectedHabitToInput: Habit & { date: string } | null;
+    addEntryModalOpen: boolean;
+    selectedHabitToEntry: Habit & { date: string } | null;
     habitListQueryParams: {
         search: string;
         start_data?: string;
         end_date?: string;
     };
+    showingDates: Date[];
     openAddHabitDrawer: (val: boolean) => void;
     openAddCategoryDrawer: (val: boolean) => void;
-    openHabitDateInputModal: (val: boolean) => void;
-    setSelectedHabitToInput: (habit: Habit, date: string) => void;
+    openAddEntryModal: (val: boolean) => void;
+    setSelectedHabitToEntry: (habit: Habit, date: string) => void;
     setHabitListSearch: (search: string) => void;
+    setShowingDates: (dates: Date[]) => void;
     resetHabitState: () => void;
 }
 

@@ -4,8 +4,8 @@ import { Fragment, useMemo, useState } from 'react';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns';
 import { HabitWithEntries } from '@/types/Habit';
-import HabitDateInputModal from '@/components/dashboard/habit-date-input-modal';
-import HabitPopover from '@/components/dashboard/habit-popover';
+import AddEntryModal from '@/components/features/habits/modals/add-entry-modal';
+import HabitPopover from '@/components/features/habits/modals/habit-popover';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawer';
@@ -50,8 +50,8 @@ const habits: HabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
 
 const DashboardPage = () => {
     const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
-    const openHabitDateInputModal = useAppStore(state => state.openHabitDateInputModal);
-    const setSelectedHabitToInput = useAppStore(state => state.setSelectedHabitToInput);
+    const openAddEntryModal = useAppStore(state => state.openAddEntryModal);
+    const setSelectedHabitToEntry = useAppStore(state => state.setSelectedHabitToEntry);
 
     const [currentWeek, setCurrentWeek] = useState<number>(0);
     const daysOfWeek = useMemo(() => eachDayOfInterval({
@@ -123,8 +123,8 @@ const DashboardPage = () => {
                                             key={`day-of-week-habit-${item.toString()}-${habit.id}`}
                                             className={`h-7 w-7 rounded-md `}
                                             onClick={() => {
-                                                openHabitDateInputModal(true);
-                                                setSelectedHabitToInput(habit, format(item, 'yyyy-MM-dd'));
+                                                openAddEntryModal(true);
+                                                setSelectedHabitToEntry(habit, format(item, 'yyyy-MM-dd'));
                                             }}
                                             style={{ backgroundColor: getSquareColor(habit, item) }}
                                         >
@@ -140,7 +140,7 @@ const DashboardPage = () => {
 
             <AddHabitDrawer />
             <AddCategoryDrawer />
-            <HabitDateInputModal />
+            <AddEntryModal />
         </DashboardLayout>
     )
 }
