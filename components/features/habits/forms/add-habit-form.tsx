@@ -39,7 +39,7 @@ const AddHabitForm = () => {
     const { mutate, isPending: isCreating } = useStoreHabit(
         () => {
             openAddHabitDrawer(false);
-            toast.success("Product added successfully.");
+            toast.success("Habit added successfully.");
         }
     );
 

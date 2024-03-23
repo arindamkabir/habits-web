@@ -1,6 +1,5 @@
-import { useMemo, useState } from 'react'
-import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/solid';
-import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns';
+import { ArrowLongLeftIcon, ArrowLongRightIcon, } from '@heroicons/react/24/solid';
+import { eachDayOfInterval, format, add } from 'date-fns';
 import useAppStore from '@/store/store';
 
 const DateRangeSelect = () => {

@@ -1,37 +1,30 @@
+import { HABIT_QUERY_KEYS } from "@/config/query-keys";
 import axios from "@/lib/axios";
+import { StoreEntryRequest } from "@/types/Entry";
 import { IErrorResponse } from "@/types/Error";
-import { IHabit } from "@/types/Habit";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { UseFormSetError } from "react-hook-form";
 
-export type ICreateHabitEntryRequest = {
-    habit_id: IHabit["id"],
-    entry: string,
-    note?: string,
-    date: string
-}
-
-const createHabitEntry = async (data: ICreateHabitEntryRequest) => {
-    const response = await axios.post(`/api/entries`, data);
+const storeEntry = async (data: StoreEntryRequest) => {
+    const response = await axios.post(`/api/habits/entries`, data);
     return response;
 }
 
-export const useCreateHabitEntry = (setError: UseFormSetError<ICreateHabitEntryRequest>, onSuccess: () => void) => {
+export const useStoreEntry = (onSuccess: () => void) => {
     const queryClient = useQueryClient();
 
-    return useMutation<any, AxiosError<IErrorResponse>, ICreateHabitEntryRequest>({
-        mutationFn: createHabitEntry,
+    return useMutation<any, AxiosError<IErrorResponse>, StoreEntryRequest>({
+        mutationFn: storeEntry,
         onSuccess: (res) => {
-            queryClient.invalidateQueries({ queryKey: ['entries'] });
+            queryClient.invalidateQueries({ queryKey: HABIT_QUERY_KEYS.all });
             onSuccess();
         },
-        onError: (err) => {
-            if (err.response?.status === 422 && err.response.data?.errors) {
-                for (const [key, value] of Object.entries(err.response.data?.errors)) {
-                    setError(key as keyof ICreateHabitEntryRequest, { type: "custom", message: value[0] });
-                }
-            }
-        }
+        // onError: (err) => {
+        //     if (err.response?.status === 422 && err.response.data?.errors) {
+        //         for (const [key, value] of Object.entries(err.response.data?.errors)) {
+        //             setError(key as keyof ICreateHabitEntryRequest, { type: "custom", message: value[0] });
+        //         }
+        //     }
+        // }
     });
 }
