@@ -4,7 +4,7 @@ import { Fragment, useMemo, useState } from 'react';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { eachDayOfInterval, endOfWeek, format, startOfWeek, add } from 'date-fns';
 import { HabitWithEntries } from '@/types/Habit';
-import AddEntryModal from '@/components/features/habits/modals/add-entry-modal';
+import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
 import HabitPopover from '@/components/features/habits/modals/habit-popover';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
@@ -50,7 +50,7 @@ const habits: HabitWithEntries[] = Array.from({ length: 5 }, (_, i) => {
 
 const DashboardPage = () => {
     const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
-    const openAddEntryModal = useAppStore(state => state.openAddEntryModal);
+    const openSaveEntryModal = useAppStore(state => state.openSaveEntryModal);
     const setSelectedHabitToEntry = useAppStore(state => state.setSelectedHabitToEntry);
 
     const [currentWeek, setCurrentWeek] = useState<number>(0);
@@ -123,7 +123,7 @@ const DashboardPage = () => {
                                             key={`day-of-week-habit-${item.toString()}-${habit.id}`}
                                             className={`h-7 w-7 rounded-md `}
                                             onClick={() => {
-                                                openAddEntryModal(true);
+                                                openSaveEntryModal(true);
                                                 setSelectedHabitToEntry(habit, format(item, 'yyyy-MM-dd'));
                                             }}
                                             style={{ backgroundColor: getSquareColor(habit, item) }}
@@ -140,7 +140,7 @@ const DashboardPage = () => {
 
             <AddHabitDrawer />
             <AddCategoryDrawer />
-            <AddEntryModal />
+            <SaveEntryModal />
         </DashboardLayout>
     )
 }

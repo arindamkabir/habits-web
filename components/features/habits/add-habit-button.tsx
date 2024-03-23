@@ -6,7 +6,7 @@ const AddHabitButton = () => {
     const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
 
     return (
-        <Button onClick={() => openAddHabitDrawer(true)}>Add Habit</Button>
+        <Button type="button" onClick={() => openAddHabitDrawer(true)}>Add Habit</Button>
     )
 }
 

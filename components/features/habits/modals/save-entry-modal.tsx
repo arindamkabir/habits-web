@@ -7,24 +7,24 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import useAppStore from "@/store/store";
-import AddEntryForm from "../forms/add-entry-form";
+import SaveEntryForm from "../forms/save-entry-form";
 
-const AddEntryModal = () => {
-    const addEntryModalOpen = useAppStore(state => state.addEntryModalOpen);
-    const openAddEntryModal = useAppStore(state => state.openAddEntryModal);
+const SaveEntryModal = () => {
+    const saveEntryModalOpen = useAppStore(state => state.saveEntryModalOpen);
+    const openSaveEntryModal = useAppStore(state => state.openSaveEntryModal);
 
     return (
-        <Dialog open={addEntryModalOpen} onOpenChange={openAddEntryModal}>
+        <Dialog open={saveEntryModalOpen} onOpenChange={openSaveEntryModal}>
             {/* <DialogTrigger></DialogTrigger> */}
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Add new entry</DialogTitle>
                 </DialogHeader>
 
-                <AddEntryForm />
+                <SaveEntryForm />
             </DialogContent>
         </Dialog>
     )
 }
 
-export default AddEntryModal;
+export default SaveEntryModal;

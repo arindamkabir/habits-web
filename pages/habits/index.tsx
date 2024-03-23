@@ -1,5 +1,5 @@
 import { HabitWithEntries } from '@/types/Habit';
-import AddEntryModal from '@/components/features/habits/modals/add-entry-modal';
+import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import AddHabitButton from '@/components/features/habits/add-habit-button';
@@ -57,7 +57,7 @@ const HabitsPage = () => {
 
             <AddHabitDrawer />
             <AddCategoryDrawer />
-            <AddEntryModal />
+            <SaveEntryModal />
         </DashboardLayout>
     )
 }

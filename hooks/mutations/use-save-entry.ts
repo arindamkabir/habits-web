@@ -1,20 +1,20 @@
 import { HABIT_QUERY_KEYS } from "@/config/query-keys";
 import axios from "@/lib/axios";
-import { StoreEntryRequest } from "@/types/Entry";
+import { SaveEntryRequest } from "@/types/Entry";
 import { IErrorResponse } from "@/types/Error";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-const storeEntry = async (data: StoreEntryRequest) => {
+const saveEntry = async (data: SaveEntryRequest) => {
     const response = await axios.post(`/api/habits/entries`, data);
     return response;
 }
 
-export const useStoreEntry = (onSuccess: () => void) => {
+export const useSaveEntry = (onSuccess: () => void) => {
     const queryClient = useQueryClient();
 
-    return useMutation<any, AxiosError<IErrorResponse>, StoreEntryRequest>({
-        mutationFn: storeEntry,
+    return useMutation<any, AxiosError<IErrorResponse>, SaveEntryRequest>({
+        mutationFn: saveEntry,
         onSuccess: (res) => {
             queryClient.invalidateQueries({ queryKey: HABIT_QUERY_KEYS.all });
             onSuccess();

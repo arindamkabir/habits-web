@@ -87,7 +87,7 @@ const AddHabitForm = () => {
                                     value={field.value}
                                     onSelect={(value) => form.setValue("category_id", value)}
                                 />
-                                <Button onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
+                                <Button type="button" onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
                             </div>
                             <FormMessage />
                         </FormItem>

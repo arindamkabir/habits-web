@@ -20,7 +20,7 @@ const getSquareColor = (habit: HabitWithEntries, date: Date) => {
 }
 
 const EntrySquare: FC<Props> = ({ habit, date }) => {
-    const openAddEntryModal = useAppStore(state => state.openAddEntryModal);
+    const openSaveEntryModal = useAppStore(state => state.openSaveEntryModal);
     const setSelectedHabitToEntry = useAppStore(state => state.setSelectedHabitToEntry);
 
     const bgColor = useMemo(() => getSquareColor(habit, date), [habit, date]);
@@ -29,7 +29,7 @@ const EntrySquare: FC<Props> = ({ habit, date }) => {
         <div
             className={`h-7 w-7 rounded-md `}
             onClick={() => {
-                openAddEntryModal(true);
+                openSaveEntryModal(true);
                 setSelectedHabitToEntry(habit, format(date, 'yyyy-MM-dd'));
             }}
             style={{ backgroundColor: bgColor }}

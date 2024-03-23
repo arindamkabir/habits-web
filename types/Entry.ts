@@ -1,4 +1,4 @@
-import { storeEntrySchema } from "@/schemas/habit/store-entry";
+import { saveEntrySchema } from "@/schemas/habit/save-entry";
 import { z } from "zod";
 
 export type Entry = {
@@ -11,7 +11,7 @@ export type Entry = {
     updated_at: string;
 };
 
-export type StoreEntryRequest = z.infer<typeof storeEntrySchema> & {
+export type SaveEntryRequest = z.infer<typeof saveEntrySchema> & {
     habit_id: number;
     date: string;
 };
