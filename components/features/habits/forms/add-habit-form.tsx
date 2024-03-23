@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -16,44 +15,36 @@ import {
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
-import { useCreateHabit } from "@/hooks/mutations/use-store-habit"
+import { useStoreHabit } from "@/hooks/mutations/use-store-habit"
 import useAppStore from "@/store/store"
 import { useGetAllCategories } from "@/hooks/queries/use-get-all-categories"
 import { toast } from "sonner"
-import CategorySelect from "../../categories/CategorySelect"
-
-const formSchema = z.object({
-    name: z.string().min(1, { message: "This field has to be filled." }),
-    description: z.string(),
-    category_id: z.number().int().positive({ message: "This field has to be filled." }),
-    entryType: z.enum(['boolean', 'number'], { required_error: "This field has to be filled." }),
-})
+import CategorySelect from "../cateogry-select"
+import { storeHabitSchema } from "@/schemas/habit/store-habit"
 
 const AddHabitForm = () => {
     const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
     const openAddCategoryDrawer = useAppStore(state => state.openAddCategoryDrawer);
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof storeHabitSchema>>({
+        resolver: zodResolver(storeHabitSchema),
         defaultValues: {
             name: "",
             description: "",
             category_id: undefined,
-            entryType: undefined,
+            entry_type: undefined,
         },
     });
 
-    const { data: categoriesData, isPending: isCategoriesPending } = useGetAllCategories();
-
-    const { mutate, isPending: isCreating } = useCreateHabit(
+    const { mutate, isPending: isCreating } = useStoreHabit(
         () => {
             openAddHabitDrawer(false);
             toast.success("Product added successfully.");
         }
     );
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    function onSubmit(values: z.infer<typeof storeHabitSchema>) {
+        mutate(values);
     }
 
     return (
@@ -91,10 +82,13 @@ const AddHabitForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Category</FormLabel>
-                            <CategorySelect
-                                value={field.value}
-                                onSelect={(value) => form.setValue("category_id", value)}
-                            />
+                            <div className="flex space-x-2 items-center">
+                                <CategorySelect
+                                    value={field.value}
+                                    onSelect={(value) => form.setValue("category_id", value)}
+                                />
+                                <Button onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
+                            </div>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -102,7 +96,7 @@ const AddHabitForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="entryType"
+                    name="entry_type"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Entry Type</FormLabel>
