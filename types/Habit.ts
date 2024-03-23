@@ -1,5 +1,7 @@
+import { z } from "zod";
 import { Category } from "./Category"
 import { Entry } from "./Entry";
+import { storeHabitSchema } from "@/schemas/habit/store-habit";
 
 export type Habit = {
     id: number
@@ -20,3 +22,4 @@ export type HabitWithEntries = Habit & {
     entries: Entry[]
 }
 
+export type StoreHabitRequest = z.infer<typeof storeHabitSchema>;

@@ -13,6 +13,8 @@ export type HabitState = {
     selectedHabitToInput: Habit & { date: string } | null;
     habitListQueryParams: {
         search: string;
+        start_data?: string;
+        end_date?: string;
     };
     openAddHabitDrawer: (val: boolean) => void;
     openAddCategoryDrawer: (val: boolean) => void;
