@@ -6,7 +6,7 @@ Habits is an application that helps users to track their habits. It allows users
 
 ## Installation 
 
-git clone https://github.com/arindamkabir/habits-web.git
-cd habits-web
-npm install
+git clone https://github.com/arindamkabir/habits-web.git \
+cd habits-web \
+npm install \
 npm run dev
