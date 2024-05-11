@@ -1,12 +1,15 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { HabitWithEntries } from '@/types/Habit';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/router';
 
 type HabitPopoverProps = {
     habit: HabitWithEntries
 }
 
 const HabitPopover = ({ habit }: HabitPopoverProps) => {
+    const router = useRouter();
+
     return (
         <Popover>
             <PopoverTrigger className='hover:underline hover:underline-offset-3'>{habit.name}</PopoverTrigger>
@@ -19,7 +22,13 @@ const HabitPopover = ({ habit }: HabitPopoverProps) => {
                 </div>
                 <div className="flex justify-between items-center">
                     <Button variant="link" className='px-0'>Edit</Button>
-                    <Button variant="link" className='px-0'>View</Button>
+                    <Button
+                        onClick={() => router.push(`/habits/${habit.slug}`)}
+                        variant="link"
+                        className='px-0'
+                    >
+                        View
+                    </Button>
                 </div>
             </PopoverContent>
         </Popover>
