@@ -1,16 +1,15 @@
 import axios from "@/lib/axios";
+import { LoginRequest, LoginResponse } from "@/types/Auth";
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from "next/router";
 
-export type LoginRequest = {
-    email: string,
-    password: string,
-    shouldRemember: boolean
-}
-
 const login = async (data: LoginRequest) => {
-    await axios.get('/sanctum/csrf-cookie');
-    const response = await axios.post('/login', { email: data.email, password: data.password, remember: data.shouldRemember });
+    const payload = {
+        email: data.email,
+        password: data.password,
+        remember: data.shouldRemember,
+    };
+    const response = await axios.post<LoginResponse>('/api/login', payload);
     return response;
 }
 
@@ -20,10 +19,11 @@ export const useLogin = () => {
     return useMutation({
         mutationFn: login,
         onSuccess: (res) => {
+            localStorage.removeItem('access_token');
+            localStorage.setItem('access_token', res.data.data.token);
             router.push('dashboard');
         },
         onError: (err) => {
-            // router.push('/')
             console.log(err)
         }
     });
