@@ -2,15 +2,12 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { User } from "@/types/User";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { ChevronDown } from "lucide-react";
-import { Button } from "../ui/button";
-import { useRouter } from "next/router";
 import { useLogout } from "@/hooks/mutations/auth/use-logout";
 
 type DashboardHeaderProps = {
@@ -19,8 +16,7 @@ type DashboardHeaderProps = {
 }
 
 const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
-    const router = useRouter();
-    const { mutate: logout, isPending } = useLogout();
+    const { mutate: logout } = useLogout();
 
     return (
         <div className="flex justify-between items-center w-full border-b border-gray-200 dark:border-gray-700 px-2 py-6 sm:px-2 md:px-6 lg:px-12 xl:px-20 shadow">
@@ -35,10 +31,6 @@ const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
             </div>
 
             <div className="flex items-center space-x-4">
-                <Button variant="default" className="focus:outline-none" onClick={() => router.push('/pos')}>
-                    POS Dashboard
-                </Button>
-
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <span className="flex items-center space-x-2 cursor-pointer">
@@ -59,7 +51,6 @@ const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
                         </span>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        {/* <DropdownMenuLabel>My Account </DropdownMenuLabel> */}
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             className="cursor-pointer"

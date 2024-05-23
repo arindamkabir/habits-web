@@ -1,6 +1,5 @@
-import Link from "next/link";
 import SidebarLink from "./SidebarLink";
-import { Building2Icon, CogIcon, DollarSignIcon, HammerIcon, LayoutDashboardIcon, LogOutIcon, ShoppingBasketIcon, TagsIcon, Users2Icon } from "lucide-react";
+import { LayoutDashboardIcon, LogOutIcon, } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useLogout } from "@/hooks/mutations/auth/use-logout";
 import SidebarButton from "./SidebarButton";
@@ -8,7 +7,7 @@ import SidebarButton from "./SidebarButton";
 export default function Sidebar() {
     const pathname = usePathname();
 
-    const { mutate: logout, isPending } = useLogout();
+    const { mutate: logout } = useLogout();
 
     return (
         <div className="flex-none hidden shadow md:block">

@@ -52,7 +52,7 @@ const SaveEntryForm = () => {
             date: selectedHabitToEntry.date,
             ...values
         });
-    };
+    }
 
     useEffect(() => {
         if (!existingEntry) {

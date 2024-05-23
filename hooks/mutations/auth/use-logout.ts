@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import useAppStore from "@/store/store";
-import { ErrorResponse } from "@/types/Error";
+import { IErrorResponse } from "@/types/Error";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ export const useLogout = () => {
     const queryClient = useQueryClient();
     const clearStore = useAppStore(state => state.clearStore);
 
-    return useMutation<any, AxiosError<ErrorResponse>>({
+    return useMutation<any, AxiosError<IErrorResponse>>({
         mutationFn: logout,
         onSuccess: (res) => {
             queryClient.clear();

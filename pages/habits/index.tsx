@@ -1,4 +1,3 @@
-import { HabitWithEntries } from '@/types/Habit';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
 import AddCategoryDrawer from '@/components/dashboard/add-category-drawer';
 import DashboardLayout from '@/components/layouts/DashboardLayout';

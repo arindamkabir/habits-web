@@ -9,7 +9,7 @@ type GuestLayoutProps = {
 
 const GuestLayout = ({ children }: GuestLayoutProps) => {
     const loading = useAppStore(state => state.loading);
-    const { user, isPending } = useAuth("guest");
+    const { isPending } = useAuth("guest");
 
     return (
         <>

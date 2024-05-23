@@ -10,7 +10,7 @@ const EntryBoard = () => {
     const showingDates = useAppStore(state => state.showingDates);
     const habitListQueryParams = useAppStore(state => state.habitListQueryParams);
 
-    const { data: habitListResponse, isLoading } = useGetAllHabits(habitListQueryParams);
+    const { data: habitListResponse } = useGetAllHabits(habitListQueryParams);
 
     return (
         <div>
@@ -22,7 +22,7 @@ const EntryBoard = () => {
                 <div className="grid grid-cols-12 gap-6 place-items-center">
                     <div className="col-span-4"></div>
                     {
-                        showingDates.map((item, index) => (
+                        showingDates.map((item) => (
                             <div key={`day-of-week-${item.toString()}`}>
                                 <div className='text-center text-sm'>{format(item, 'EEE')}</div>
                                 <div className='text-center text-xs text-gray-400'>{format(item, 'd/M')}</div>
@@ -38,7 +38,7 @@ const EntryBoard = () => {
                                     <HabitPopover habit={habit} />
                                 </div>
                                 {
-                                    showingDates.map((item, index) => (
+                                    showingDates.map((item) => (
                                         <EntrySquare
                                             key={`day-of-week-habit-${item.toString()}-${habit.id}`}
                                             habit={habit}

@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { useToast } from "@/components/ui/use-toast";
 import { toast } from "sonner";
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['200', '400', '500', '600', '700'], variable: '--font-poppins' });
@@ -23,7 +22,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         staleTime: staleTimeInMs // 30 mins
       },
       mutations: {
-        onError(error, variables, context) {
+        onError() {
           toast.error("Something went wrong, please try again.")
         },
       }
