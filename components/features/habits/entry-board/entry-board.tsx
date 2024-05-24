@@ -4,13 +4,13 @@ import useAppStore from '@/store/store';
 import EntrySquare from './entry-square';
 import HabitPopover from '@/components/features/habits/modals/habit-popover';
 import { format } from 'date-fns';
-import { useGetAllHabits } from '@/hooks/queries/use-get-all-habits';
+import { useGetHabitList } from '@/hooks/queries/use-get-habits';
 
 const EntryBoard = () => {
     const showingDates = useAppStore(state => state.showingDates);
     const habitListQueryParams = useAppStore(state => state.habitListQueryParams);
 
-    const { data: habitListResponse } = useGetAllHabits(habitListQueryParams);
+    const { data: habitListResponse } = useGetHabitList(habitListQueryParams);
 
     return (
         <div>
@@ -32,7 +32,7 @@ const EntryBoard = () => {
                     <div></div>
 
                     {
-                        habitListResponse?.map((habit, index) =>
+                        habitListResponse?.data.map((habit, index) =>
                             <Fragment key={`habit-${index}`}>
                                 <div className="col-span-4">
                                     <HabitPopover habit={habit} />
