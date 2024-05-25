@@ -15,12 +15,9 @@ export const useStoreHabit = (onSuccess: () => void) => {
 
     return useMutation<any, AxiosError<IErrorResponse>, StoreHabitRequest>({
         mutationFn: storeHabit,
-        onSuccess: (res) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: HABIT_QUERY_KEYS.all })
             onSuccess();
         },
-        // onError: (err) => {
-        //     console.log(err);
-        // }
     });
 }
