@@ -19,7 +19,7 @@ const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
     const { mutate: logout } = useLogout();
 
     return (
-        <div className="flex justify-between items-center w-full border-b border-gray-200 dark:border-gray-700 px-2 py-6 sm:px-2 md:px-6 lg:px-12 xl:px-20 shadow">
+        <div className="flex justify-between items-center w-full px-4 py-6 sm:px-4 md:px-6 lg:px-12 xl:px-20">
             <div className="text-lg font-medium tracking-widest uppercase">
                 {header && (
                     <header className="">

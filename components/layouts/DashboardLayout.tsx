@@ -7,6 +7,7 @@ import Head from "next/head";
 import DashboardHeader from "./DashboardHeader";
 import PageLoader from "../ui/page-loader";
 import useAppStore from "@/store/store";
+import BottomNavigationMobile from "./Navigation/BottomNavigationMobile";
 
 type DashboardLayoutProps = {
     header?: string;
@@ -71,19 +72,20 @@ const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
                                                 <DashboardHeader header={header} user={user} />
                                             </div>
                                         </div>
-                                        <div className="px-2 py-10 sm:px-2 md:px-6 lg:px-12 xl:px-20">
+                                        <div className="px-4 py-10 sm:px-4 md:px-6 lg:px-12 xl:px-20">
                                             {children}
                                         </div>
                                     </div>
 
 
                                     <div
-                                        className="flex justify-between px-2 py-4 sm:px-2 md:px-6 lg:px-12 xl:px-20">
+                                        className="flex justify-between px-4 py-4 sm:px-4 md:px-6 lg:px-12 xl:px-20">
                                         <p className="text-xs text-gray-400">All rights reserved.</p>
                                     </div>
 
                                 </div>
                             </div>
+                            <BottomNavigationMobile />
                         </div>
                         <Toaster />
                     </>
