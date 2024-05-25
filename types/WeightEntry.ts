@@ -10,6 +10,11 @@ export type WeightEntry = {
     updated_at?: string | null,
 };
 
-export type StoreWeightEntry = z.infer<typeof saveEntrySchema> & {
+export type TStoreWeightEntryRequest = z.infer<typeof saveEntrySchema> & {
     date: string;
 };
+
+export type TWeightChartData = {
+    label: string;
+    value: number;
+}[];
