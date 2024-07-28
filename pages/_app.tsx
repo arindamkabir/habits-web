@@ -4,8 +4,8 @@ import { Poppins } from 'next/font/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { toast } from "sonner";
+import { ThemeProvider } from "next-themes";
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['200', '400', '500', '600', '700'], variable: '--font-poppins' });
 
@@ -30,26 +30,22 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
   }));
 
   return (
-    <>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+    >
       <style jsx global>{`
         html {
           font-family: ${poppins.style.fontFamily};
         }
       `}</style>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className={`${poppins.className}`} data-theme="dark">
-            <Component {...pageProps} />
-          </main>
-        </ThemeProvider>
+        <main className={`${poppins.className}`}>
+          <Component {...pageProps} />
+        </main>
         <ReactQueryDevtools />
       </QueryClientProvider >
-    </>
+    </ThemeProvider>
   )
 }
 
