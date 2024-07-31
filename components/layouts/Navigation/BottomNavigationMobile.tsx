@@ -5,7 +5,7 @@ import React from 'react'
 const BottomNavigationMobile = () => {
     return (
         <div className="w-full max-w-md mx-auto fixed inset-x-0 bottom-0 md:hidden">
-            <div className="py-4 px-7 border border-gray-200 bg-white text-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 shadow-lg">
+            <div className="py-4 px-7 border border-zinc-200 bg-white text-zinc-950 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 shadow-lg">
                 <div className="flex">
                     <div className="flex-1 group">
                         <Link

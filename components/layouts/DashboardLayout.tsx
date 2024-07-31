@@ -60,9 +60,7 @@ const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
                                 </div>
                             </nav>
 
-
-
-                            <div className="flex flex-col w-full overflow-y-hidden md:flex-row md:h-screen">
+                            <div className="flex flex-col w-full overflow-y-hidden md:flex-row md:h-screen pb-8">
                                 <Sidebar />
 
                                 <div className="flex-auto w-full overflow-y-auto flex flex-col justify-between h-full">
@@ -79,13 +77,16 @@ const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
 
 
                                     <div
-                                        className="flex justify-between px-4 py-4 sm:px-4 md:px-6 lg:px-12 xl:px-20">
+                                        className="hidden md:flex justify-between px-4 py-4 sm:px-4 md:px-6 lg:px-12 xl:px-20"
+                                    >
                                         <p className="text-xs text-gray-400">All rights reserved.</p>
                                     </div>
 
                                 </div>
                             </div>
-                            <BottomNavigationMobile />
+                            <div className="pt-12 md:pt-0">
+                                <BottomNavigationMobile />
+                            </div>
                         </div>
                         <Toaster />
                     </>

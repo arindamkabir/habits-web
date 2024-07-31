@@ -4,9 +4,9 @@ import { HabitWithEntries } from "@/types/Habit";
 import { useQuery } from "@tanstack/react-query";
 
 export type HabitListRequest = {
-    search: string,
-    start_date: string,
-    end_date: string,
+    search?: string,
+    start_date?: string,
+    end_date?: string,
 }
 
 export type HabitListResponse = {
