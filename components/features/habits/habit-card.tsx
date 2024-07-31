@@ -26,7 +26,7 @@ export function HabitCard({ className, habit, dates }: HabitCardProps) {
     const textClass = textClasses[habit.category.color as keyof typeof textClasses];
 
     return (
-        <Card className={cn("w-[380px]", className)}>
+        <Card className={cn("w-full md:w-[380px]", className)}>
             <CardHeader>
                 <CardTitle>{habit.name}</CardTitle>
             </CardHeader>
