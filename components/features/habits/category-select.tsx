@@ -2,13 +2,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 
-import { cn } from "@/utils/shadcn"
+import { cn } from "@/utils/classNames"
 import { useMemo, useState } from "react"
 import { uuid } from 'uuidv4';
 import { useGetAllCategories } from "@/hooks/queries/use-get-all-categories"
 import { FormControl } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
-
 
 type CategorySelectProps = {
     value?: number | null,
@@ -23,9 +22,9 @@ const CategorySelect = ({ value, onSelect, exclude }: CategorySelectProps) => {
 
     const categories = useMemo(() => {
         if (!categoriesData) return [];
-        if (!exclude) return categoriesData;
+        if (!exclude) return categoriesData.data;
 
-        return categoriesData?.filter(
+        return categoriesData?.data.filter(
             category => category.id !== exclude
         ) || [];
 

@@ -9,7 +9,7 @@ type HabitCategoriesResponse = {
 const QUERY_KEY = ['categories'];
 
 const fetchCategories = async (): Promise<HabitCategoriesResponse> => {
-    const response = await axios.get(`/api/categories`);
+    const response = await axios.get(`/api/habits/categories`);
     return response.data;
 };
 
