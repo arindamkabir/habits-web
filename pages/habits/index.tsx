@@ -1,9 +1,12 @@
+import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawer';
 import { HabitCard } from '@/components/features/habits/habit-card';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import { Button } from '@/components/ui/button';
 import PageLoader from '@/components/ui/page-loader';
 import { useGetHabitList } from '@/hooks/queries/use-get-habits';
 import useAppStore from '@/store/store';
 import { add, eachDayOfInterval, formatDate } from "date-fns"
+import { PlusIcon } from 'lucide-react';
 import { useEffect } from 'react';
 
 const dates = eachDayOfInterval({
@@ -16,6 +19,7 @@ const endDate = formatDate(dates[dates.length - 1], 'yyyy-MM-dd');
 
 const HabitsPage = () => {
     const setLoading = useAppStore(state => state.setLoading);
+    const openAddHabitDrawer = useAppStore(state => state.openAddHabitDrawer);
 
     const { data: habitsList, isFetching } = useGetHabitList({
         start_date: startDate,
@@ -28,6 +32,14 @@ const HabitsPage = () => {
 
     return (
         <DashboardLayout header='Habits'>
+            <div className="flex justify-end mb-6">
+                <Button
+                    variant="secondary"
+                    onClick={() => openAddHabitDrawer(true)}
+                >
+                    <PlusIcon className="h-5 w-5" />
+                </Button>
+            </div>
             <div className="space-y-2.5">
                 {
                     !isFetching && habitsList?.data.map((habit) => (
@@ -39,6 +51,7 @@ const HabitsPage = () => {
                     ))
                 }
             </div>
+            <AddHabitDrawer />
         </DashboardLayout>
     )
 }
