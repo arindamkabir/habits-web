@@ -2,7 +2,6 @@ import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawe
 import { HabitCard } from '@/components/features/habits/habit-card';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { Button } from '@/components/ui/button';
-import PageLoader from '@/components/ui/page-loader';
 import { useGetHabitList } from '@/hooks/queries/use-get-habits';
 import useAppStore from '@/store/store';
 import { add, eachDayOfInterval, formatDate } from "date-fns"

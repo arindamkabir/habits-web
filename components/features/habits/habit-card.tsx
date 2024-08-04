@@ -8,6 +8,7 @@ import { bgClasses, textClasses } from "@/config/colors";
 import { HabitWithEntries } from "@/types/Habit";
 import { cn } from "@/utils/classNames"
 import { formatDate } from "date-fns"
+import { useRouter } from "next/router";
 import { useMemo } from "react";
 
 type HabitCardProps = {
@@ -17,6 +18,7 @@ type HabitCardProps = {
 }
 
 export function HabitCard({ className, habit, dates }: HabitCardProps) {
+    const router = useRouter();
     const entries = useMemo(() => dates.map((date) => ({
         date,
         habitEntry: habit.entries.find((entry) => formatDate(new Date(entry.date), "yyyy-MM-dd") === formatDate(date, "yyyy-MM-dd"))
@@ -26,7 +28,10 @@ export function HabitCard({ className, habit, dates }: HabitCardProps) {
     const textClass = textClasses[habit.category.color as keyof typeof textClasses];
 
     return (
-        <Card className={cn("w-full md:w-[380px]", className)}>
+        <Card
+            className={cn("w-full md:w-[380px]", className)}
+            onClick={() => router.push(`/habits/${habit.slug}`)}
+        >
             <CardHeader>
                 <CardTitle>{habit.name}</CardTitle>
             </CardHeader>
@@ -40,7 +45,13 @@ export function HabitCard({ className, habit, dates }: HabitCardProps) {
                                 </div>
                                 <div className={cn(
                                     "flex justify-center items-center rounded-full h-8 w-8 text-xs",
-                                    item.habitEntry ? (item.habitEntry.entry ? `${bgClass} text-white` : `bg-slate-900 ${textClass}`) : "bg-slate-600 text-slate-400"
+                                    item.habitEntry
+                                        ? (
+                                            item.habitEntry.entry
+                                                ? `${bgClass} text-white`
+                                                : `bg-zinc-900 ${textClass}`
+                                        )
+                                        : "bg-zinc-600 text-zinc-400"
                                 )}>
                                     {formatDate(item.date, "d")}
                                 </div>
