@@ -4,9 +4,9 @@ import { IErrorResponse } from "@/types/Error";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
-import { UseFormSetError } from "react-hook-form";
 
 const logout = async () => {
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.post('/logout');
     return response;
 }

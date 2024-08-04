@@ -13,6 +13,7 @@ export type IRegisterRequest = {
 }
 
 const register = async (data: IRegisterRequest) => {
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.post('/register', data);
     return response;
 }

@@ -9,6 +9,7 @@ const login = async (data: LoginRequest) => {
         password: data.password,
         remember: data.shouldRemember,
     };
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.post<LoginResponse>('/api/login', payload);
     return response;
 }
@@ -19,9 +20,7 @@ export const useLogin = () => {
     return useMutation({
         mutationFn: login,
         onSuccess: (res) => {
-            localStorage.removeItem('access_token');
-            localStorage.setItem('access_token', res.data.data.token);
-            router.push('dashboard');
+            router.push('habits');
         },
         onError: (err) => {
             console.log(err)
