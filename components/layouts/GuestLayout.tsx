@@ -1,15 +1,15 @@
-import { useAuth } from "@/hooks/use-auth";
-import Head from "next/head";
-import PageLoader from "../ui/page-loader";
-import useAppStore from "@/store/store";
+import Head from 'next/head';
+import { useAuth } from '@/hooks/use-auth';
+import PageLoader from '../ui/page-loader';
+import useAppStore from '@/store/store';
 
 type GuestLayoutProps = {
     children: React.ReactNode
-}
+};
 
-const GuestLayout = ({ children }: GuestLayoutProps) => {
-    const loading = useAppStore(state => state.loading);
-    const { isPending } = useAuth("guest");
+function GuestLayout({ children }: GuestLayoutProps) {
+    const loading = useAppStore((state) => state.loading);
+    const { isPending } = useAuth('guest');
 
     return (
         <>
@@ -22,15 +22,15 @@ const GuestLayout = ({ children }: GuestLayoutProps) => {
             </Head>
             {
                 (isPending || loading)
-                    ?
-                    <PageLoader />
-                    :
-                    <main className="flex flex-col justify-center items-center w-full overflow-y-hidden md:flex-row md:h-screen px-3">
+                    ? <PageLoader />
+                    : (
+<main className="flex flex-col justify-center items-center w-full overflow-y-hidden md:flex-row md:h-screen px-3">
                         {children}
-                    </main>
+</main>
+)
             }
         </>
-    )
+    );
 }
 
 export default GuestLayout;

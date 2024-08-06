@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/use-auth";
-import Sidebar from "./Navigation/Sidebar";
-import { Toaster } from "../ui/sonner";
-import Head from "next/head";
-import DashboardHeader from "./DashboardHeader";
-import PageLoader from "../ui/page-loader";
-import useAppStore from "@/store/store";
-import BottomNavigationMobile from "./Navigation/BottomNavigationMobile";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { useAuth } from '@/hooks/use-auth';
+import Sidebar from './Navigation/Sidebar';
+import { Toaster } from '../ui/sonner';
+import DashboardHeader from './DashboardHeader';
+import PageLoader from '../ui/page-loader';
+import useAppStore from '@/store/store';
+import { MobileNavigation } from './Navigation/mobile-navigation';
 
 type DashboardLayoutProps = {
     header?: string;
     children: React.ReactNode;
-}
+};
 
-const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
-    const loading = useAppStore(state => state.loading);
-    const { user, isPending } = useAuth("auth");
+function DashboardLayout({ header, children }: DashboardLayoutProps) {
+    const loading = useAppStore((state) => state.loading);
+    const { user, isPending } = useAuth('auth');
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -29,13 +29,12 @@ const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
             </Head>
             {
                 (!user || isPending || loading)
-                    ?
-                    <PageLoader />
-                    :
-                    <>
+                    ? <PageLoader />
+                    : (
+<>
                         <div className="min-h-screen">
                             <nav className="bg-white border-b border-gray-100 dark:bg-gray-950 dark:border-gray-700">
-                                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' md:hidden'}>
+                                <div className={`${showingNavigationDropdown ? 'block' : 'hidden'} md:hidden`}>
                                     <div className="pt-2 pb-3 space-y-1">
                                         {/* <ResponsiveNavLink href="/dashboard" active={router.pathname === '/dashboard'}>
                                     Dashboard
@@ -75,9 +74,8 @@ const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
                                         </div>
                                     </div>
 
-
                                     <div
-                                        className="hidden md:flex justify-between px-4 py-4 sm:px-4 md:px-6 lg:px-12 xl:px-20"
+                                      className="hidden md:flex justify-between px-4 py-4 sm:px-4 md:px-6 lg:px-12 xl:px-20"
                                     >
                                         <p className="text-xs text-gray-400">All rights reserved.</p>
                                     </div>
@@ -85,14 +83,15 @@ const DashboardLayout = ({ header, children }: DashboardLayoutProps) => {
                                 </div>
                             </div>
                             <div className="pt-12 md:pt-0">
-                                <BottomNavigationMobile />
+                                <MobileNavigation />
                             </div>
                         </div>
                         <Toaster />
-                    </>
+</>
+)
             }
         </>
-    )
+    );
 }
 
-export default DashboardLayout
+export default DashboardLayout;

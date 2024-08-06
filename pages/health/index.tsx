@@ -1,12 +1,14 @@
+import React from 'react';
 import { WeightChart } from '@/components/features/weight-tracker/WeightChart';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import React from 'react'
+import {
+ Card, CardContent, CardHeader, CardTitle,
+} from '@/components/ui/card';
 
-const Health = () => {
+function Health() {
     return (
         <DashboardLayout
-            header='Weight Tracker'
+          header="Weight Tracker"
         >
             <Card className="col-span-4">
                 <CardHeader>
@@ -18,6 +20,6 @@ const Health = () => {
             </Card>
         </DashboardLayout>
     );
-};
+}
 
 export default Health;

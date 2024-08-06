@@ -1,21 +1,21 @@
-import FormDrawer from '@/components/ui/form-drawer'
+import React from 'react';
+import FormDrawer from '@/components/ui/form-drawer';
 import useAppStore from '@/store/store';
-import React from 'react'
-import EditHabitForm from '../forms/edit-habit-form';
+// import EditHabitForm from '../forms/edit-habit-form';
 
-const EditHabitDrawer = () => {
-    const editHabitDrawerOpen = useAppStore(state => state.editHabitDrawerOpen);
-    const openEditHabitDrawer = useAppStore(state => state.openEditHabitDrawer);
+function EditHabitDrawer() {
+    const editHabitDrawerOpen = useAppStore((state) => state.editHabitDrawerOpen);
+    const openEditHabitDrawer = useAppStore((state) => state.openEditHabitDrawer);
 
     return (
         <FormDrawer
-            title={"Edit Habit"}
-            open={editHabitDrawerOpen}
-            onClose={() => openEditHabitDrawer(false)}
+          title="Edit Habit"
+          open={editHabitDrawerOpen}
+          onClose={() => openEditHabitDrawer(false)}
         >
-            <EditHabitForm />
+            {/* <EditHabitForm /> */}
         </FormDrawer>
-    )
+    );
 }
 
-export default EditHabitDrawer
+export default EditHabitDrawer;

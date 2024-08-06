@@ -1,7 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { useEffect, useMemo } from 'react';
+import { format } from 'date-fns';
+import { Button } from '@/components/ui/button';
 import {
     Form,
     FormControl,
@@ -9,27 +12,24 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from '@/components/ui/form';
 import {
     ToggleGroup,
     ToggleGroupItem,
-} from "@/components/ui/toggle-group"
-import { Textarea } from "@/components/ui/textarea"
-import useAppStore from "@/store/store"
-import { toast } from "sonner"
-import { saveEntrySchema } from "@/schemas/habit/save-entry"
-import { useSaveEntry } from "@/hooks/mutations/use-save-entry"
-import { useEffect, useMemo } from "react"
-import { format } from "date-fns"
-import { Input } from "@/components/ui/input"
+} from '@/components/ui/toggle-group';
+import { Textarea } from '@/components/ui/textarea';
+import useAppStore from '@/store/store';
+import { saveEntrySchema } from '@/schemas/habit/save-entry';
+import { useSaveEntry } from '@/hooks/mutations/use-save-entry';
+import { Input } from '@/components/ui/input';
 
-const SaveEntryForm = () => {
-    const openSaveEntryModal = useAppStore(state => state.openSaveEntryModal);
-    const selectedHabitToEntry = useAppStore(state => state.selectedHabitToEntry);
+function SaveEntryForm() {
+    const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
+    const selectedHabitToEntry = useAppStore((state) => state.selectedHabitToEntry);
 
     const existingEntry = useMemo(() => {
         if (!selectedHabitToEntry) return undefined;
-        const found = selectedHabitToEntry.entries.find((entry) => format(entry.date, "yyyy-MM-dd") === selectedHabitToEntry.date);
+        const found = selectedHabitToEntry.entries.find((entry) => format(entry.date, 'yyyy-MM-dd') === selectedHabitToEntry.date);
         return found;
     }, [selectedHabitToEntry]);
 
@@ -40,8 +40,8 @@ const SaveEntryForm = () => {
     const { mutate, isPending: isCreating } = useSaveEntry(
         () => {
             openSaveEntryModal(false);
-            toast.success("Entry added successfully.");
-        }
+            toast.success('Entry added successfully.');
+        },
     );
 
     function onSubmit(values: z.infer<typeof saveEntrySchema>) {
@@ -50,7 +50,7 @@ const SaveEntryForm = () => {
         mutate({
             habit_id: selectedHabitToEntry.id,
             date: selectedHabitToEntry.date,
-            ...values
+            ...values,
         });
     }
 
@@ -59,26 +59,28 @@ const SaveEntryForm = () => {
             form.reset();
             return;
         }
-        form.setValue("entry", existingEntry?.entry || 0);
-        form.setValue("note", existingEntry?.note || "");
+        form.setValue('entry', existingEntry?.entry || 0);
+        form.setValue('note', existingEntry?.note || '');
     }, [existingEntry, form]);
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
-                    control={form.control}
-                    name="entry"
-                    render={({ field }) => (
+                  control={form.control}
+                  name="entry"
+                  render={({ field }) => (
                         <FormItem>
                             <FormLabel>Did you perform this habit on this day?</FormLabel>
                             <FormControl>
                                 {
-                                    selectedHabitToEntry?.entry_type === "boolean" ?
+                                    selectedHabitToEntry?.entry_type === 'boolean' ? (
                                         <div>
-                                            <ToggleGroup type="single" className="justify-start"
-                                                value={`${field.value}`}
-                                                onValueChange={field.onChange}
+                                            <ToggleGroup
+                                              type="single"
+                                              className="justify-start"
+                                              value={`${field.value}`}
+                                              onValueChange={field.onChange}
                                             >
                                                 <ToggleGroupItem value="1">
                                                     Yes
@@ -88,8 +90,8 @@ const SaveEntryForm = () => {
                                                 </ToggleGroupItem>
                                             </ToggleGroup>
                                         </div>
-                                        :
-                                        <Input placeholder="Entry" {...field} />
+                                      )
+                                        : <Input placeholder="Entry" {...field} />
                                 }
                             </FormControl>
                             <FormMessage />
@@ -97,9 +99,9 @@ const SaveEntryForm = () => {
                     )}
                 />
                 <FormField
-                    control={form.control}
-                    name="note"
-                    render={({ field }) => (
+                  control={form.control}
+                  name="note"
+                  render={({ field }) => (
                         <FormItem>
                             <FormLabel>Note</FormLabel>
                             <FormControl>
@@ -113,7 +115,7 @@ const SaveEntryForm = () => {
                 <Button type="submit" loading={isCreating}>Save</Button>
             </form>
         </Form>
-    )
+    );
 }
 
 export default SaveEntryForm;

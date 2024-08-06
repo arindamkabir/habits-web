@@ -1,5 +1,5 @@
-import LoginRegistrationTab from "@/components/auth/login-registration-tab";
-import GuestLayout from "@/components/layouts/GuestLayout";
+import LoginRegistrationTab from '@/components/auth/login-registration-tab';
+import GuestLayout from '@/components/layouts/GuestLayout';
 
 export default function Home() {
   return (

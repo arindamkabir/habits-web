@@ -1,6 +1,6 @@
-import DashboardLayout from "@/components/layouts/DashboardLayout"
+import DashboardLayout from '@/components/layouts/DashboardLayout';
 
-const DashboardPage = () => {
+function DashboardPage() {
     return (
         <DashboardLayout>
             <div className="flex justify-end w-full">
@@ -9,7 +9,7 @@ const DashboardPage = () => {
                 </div>
             </div>
         </DashboardLayout>
-    )
+    );
 }
 
 export default DashboardPage;

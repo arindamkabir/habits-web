@@ -1,17 +1,17 @@
 import {
     Card,
     CardContent,
-} from "@/components/ui/card"
+} from '@/components/ui/card';
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
-} from "@/components/ui/tabs"
-import LoginForm from "./forms/login-form"
-import RegistrationForm from "./forms/registration-form"
+} from '@/components/ui/tabs';
+import LoginForm from './forms/login-form';
+import RegistrationForm from './forms/registration-form';
 
-const LoginRegistrationTab = () => {
+function LoginRegistrationTab() {
     return (
         <Tabs defaultValue="login" className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
@@ -33,7 +33,7 @@ const LoginRegistrationTab = () => {
                 </Card>
             </TabsContent>
         </Tabs>
-    )
+    );
 }
 
 export default LoginRegistrationTab;

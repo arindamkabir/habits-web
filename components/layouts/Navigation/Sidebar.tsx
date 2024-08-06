@@ -1,8 +1,8 @@
-import SidebarLink from "./SidebarLink";
-import { LayoutDashboardIcon, LogOutIcon, } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useLogout } from "@/hooks/mutations/auth/use-logout";
-import SidebarButton from "./SidebarButton";
+import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import SidebarLink from './SidebarLink';
+import { useLogout } from '@/hooks/mutations/auth/use-logout';
+import SidebarButton from './SidebarButton';
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -11,7 +11,7 @@ export default function Sidebar() {
 
     return (
         <div className="flex-none hidden shadow md:block">
-            <div className={"w-72 overflow-x-hidden overflow-y-hidden transition-all duration-300 border-r bg-base-300 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"}>
+            <div className="w-72 overflow-x-hidden overflow-y-hidden transition-all duration-300 border-r bg-base-300 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
 
                 <div className="flex flex-col justify-between py-4 h-full md:min-h-screen">
                     <div className="space-y-4">
@@ -20,7 +20,7 @@ export default function Sidebar() {
                         </h2>
 
                         <div className="px-3 py-2">
-                            <SidebarLink href="/dashboard" active={pathname === "/dashboard"}>
+                            <SidebarLink href="/dashboard" active={pathname === '/dashboard'}>
                                 <LayoutDashboardIcon className="w-4 h-4 mr-2" />
                                 <span>Dashboard</span>
                             </SidebarLink>
@@ -75,5 +75,5 @@ export default function Sidebar() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

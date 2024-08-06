@@ -1,25 +1,33 @@
+import { ChevronDown } from 'lucide-react';
+import { useMediaQuery } from 'usehooks-ts';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { User } from "@/types/User";
-import { Avatar, AvatarFallback } from "../ui/avatar";
-import { ChevronDown } from "lucide-react";
-import { useLogout } from "@/hooks/mutations/auth/use-logout";
+} from '@/components/ui/dropdown-menu';
+import { User } from '@/types/User';
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import { useLogout } from '@/hooks/mutations/auth/use-logout';
+import { BackButton } from './Navigation/back-button';
 
 type DashboardHeaderProps = {
     header?: string;
     user: User;
-}
+};
 
-const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
+function DashboardHeader({ header, user }: DashboardHeaderProps) {
     const { mutate: logout } = useLogout();
+    const isDesktop = useMediaQuery('(min-width: 768px)');
 
     return (
         <div className="flex justify-between items-center w-full px-4 py-6 sm:px-4 md:px-6 lg:px-12 xl:px-20">
+
+            {
+                !isDesktop && <BackButton />
+            }
+
             <div className="text-lg font-medium tracking-widest uppercase">
                 {header && (
                     <header className="">
@@ -40,8 +48,9 @@ const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
                                         user.name
                                             .split(' ')
                                             .slice(0, 2)
-                                            .map(word => word.charAt(0))
-                                            .join('').toUpperCase()
+                                            .map((word) => word.charAt(0))
+                                            .join('')
+.toUpperCase()
                                     }
                                 </AvatarFallback>
                             </Avatar>
@@ -53,8 +62,8 @@ const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
                     <DropdownMenuContent align="end">
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={() => logout()}
+                          className="cursor-pointer"
+                          onClick={() => logout()}
                         >
                             Log Out
                         </DropdownMenuItem>
@@ -62,7 +71,7 @@ const DashboardHeader = ({ header, user }: DashboardHeaderProps) => {
                 </DropdownMenu>
             </div>
         </div>
-    )
+    );
 }
 
-export default DashboardHeader
+export default DashboardHeader;

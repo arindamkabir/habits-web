@@ -1,19 +1,21 @@
+import { useMediaQuery } from 'usehooks-ts';
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog";
-import useAppStore from "@/store/store";
-import SaveEntryForm from "../forms/save-entry-form";
-import { useMediaQuery } from 'usehooks-ts'
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
+} from '@/components/ui/dialog';
+import useAppStore from '@/store/store';
+import SaveEntryForm from '../forms/save-entry-form';
+import {
+ Drawer, DrawerContent, DrawerHeader, DrawerTitle,
+} from '@/components/ui/drawer';
 
-const SaveEntryModal = () => {
-    const isDesktop = useMediaQuery("(min-width: 768px)")
+function SaveEntryModal() {
+    const isDesktop = useMediaQuery('(min-width: 768px)');
 
-    const saveEntryModalOpen = useAppStore(state => state.saveEntryModalOpen);
-    const openSaveEntryModal = useAppStore(state => state.openSaveEntryModal);
+    const saveEntryModalOpen = useAppStore((state) => state.saveEntryModalOpen);
+    const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
 
     if (isDesktop) {
         return (
@@ -26,7 +28,7 @@ const SaveEntryModal = () => {
                     <SaveEntryForm />
                 </DialogContent>
             </Dialog>
-        )
+        );
     }
 
     return (
@@ -41,7 +43,7 @@ const SaveEntryModal = () => {
                 </div>
             </DrawerContent>
         </Drawer>
-    )
+    );
 }
 
 export default SaveEntryModal;

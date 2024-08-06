@@ -1,21 +1,23 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
-
-import { cn } from "@/utils/classNames"
-import { useMemo, useState } from "react"
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { useMemo, useState } from 'react';
 import { uuid } from 'uuidv4';
-import { useGetAllCategories } from "@/hooks/queries/use-get-all-categories"
-import { FormControl } from "@/components/ui/form"
-import { Button } from "@/components/ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+ Command, CommandEmpty, CommandGroup, CommandInput, CommandItem,
+} from '@/components/ui/command';
+
+import { cn } from '@/utils/classNames';
+import { useGetAllCategories } from '@/hooks/queries/use-get-all-categories';
+import { FormControl } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
 
 type CategorySelectProps = {
     value?: number | null,
     onSelect: (value: number) => void,
     exclude?: number | null,
-}
+};
 
-const CategorySelect = ({ value, onSelect, exclude }: CategorySelectProps) => {
+function CategorySelect({ value, onSelect, exclude }: CategorySelectProps) {
     const [open, setOpen] = useState<boolean>(false);
     const { data: categoriesData, isPending: isCategoriesPending } = useGetAllCategories();
     const loopKey = uuid();
@@ -25,46 +27,45 @@ const CategorySelect = ({ value, onSelect, exclude }: CategorySelectProps) => {
         if (!exclude) return categoriesData.data;
 
         return categoriesData?.data.filter(
-            category => category.id !== exclude
+            (category) => category.id !== exclude,
         ) || [];
-
     }, [categoriesData, exclude]);
 
     return (
         <>
-            {(isCategoriesPending || !categories) ?
-                <>
-                    <FormControl>
+            {(isCategoriesPending || !categories)
+                ? (
+<FormControl>
                         <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                                "w-full justify-between",
-                                "text-muted-foreground bg-gray-200"
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                                'w-full justify-between',
+                                'text-muted-foreground bg-gray-200',
                             )}
                         >
                             Loading categories...
                             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
-                    </FormControl>
-                </>
+</FormControl>
+)
                 : (
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                             <FormControl>
                                 <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    className={cn(
-                                        "w-full justify-between",
-                                        !value && "text-muted-foreground"
+                                  variant="outline"
+                                  role="combobox"
+                                  className={cn(
+                                        'w-full justify-between',
+                                        !value && 'text-muted-foreground',
                                     )}
                                 >
                                     {value
                                         ? categories.find(
-                                            (category) => category.id === value
+                                            (category) => category.id === value,
                                         )?.name
-                                        : "Select category"}
+                                        : 'Select category'}
                                     <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </FormControl>
@@ -72,27 +73,27 @@ const CategorySelect = ({ value, onSelect, exclude }: CategorySelectProps) => {
                         <PopoverContent className="p-0" side="bottom" align="center">
                             <Command>
                                 <CommandInput
-                                    placeholder="Search categories..."
-                                    className="h-9"
+                                  placeholder="Search categories..."
+                                  className="h-9"
                                 />
                                 <CommandEmpty>No category found.</CommandEmpty>
                                 <CommandGroup>
                                     {categories.map((category) => (
                                         <CommandItem
-                                            value={category.name}
-                                            key={`${loopKey}-${category.id}`}
-                                            onSelect={() => {
+                                          value={category.name}
+                                          key={`${loopKey}-${category.id}`}
+                                          onSelect={() => {
                                                 onSelect(category.id);
                                                 setOpen(false);
                                             }}
                                         >
                                             {category.name}
                                             <CheckIcon
-                                                className={cn(
-                                                    "ml-auto h-4 w-4",
+                                              className={cn(
+                                                    'ml-auto h-4 w-4',
                                                     category.id === value
-                                                        ? "opacity-100"
-                                                        : "opacity-0"
+                                                        ? 'opacity-100'
+                                                        : 'opacity-0',
                                                 )}
                                             />
                                         </CommandItem>
@@ -105,7 +106,7 @@ const CategorySelect = ({ value, onSelect, exclude }: CategorySelectProps) => {
                 )}
 
         </>
-    )
+    );
 }
 
-export default CategorySelect
+export default CategorySelect;
