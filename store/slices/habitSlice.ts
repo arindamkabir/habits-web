@@ -38,8 +38,8 @@ const createHabitSlice: StateCreator<
     openAddCategoryDrawer: (val: boolean) => {
         set({ addCategoryDrawerOpen: val });
     },
-    setSelectedHabitToEntry: (habit, date) => {
-        set({ selectedHabitToEntry: { ...habit, date: date } });
+    setSelectedHabitToEntry: (habit, date, entry) => {
+        set({ selectedHabitToEntry: { habit, currentEntry: entry, date } });
     },
     setHabitListQueryParams(params) {
         set((state) => {
@@ -64,7 +64,7 @@ const createHabitSlice: StateCreator<
         });
     },
     resetHabitState() {
-        set((state) => initialState);
+        set(() => initialState);
     }
 });
 

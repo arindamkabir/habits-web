@@ -1,5 +1,4 @@
 import { ChevronDown } from 'lucide-react';
-import { useMediaQuery } from 'usehooks-ts';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,7 +9,8 @@ import {
 import { User } from '@/types/User';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { useLogout } from '@/hooks/mutations/auth/use-logout';
-import { BackButton } from './Navigation/back-button';
+import { useMediaQuery } from 'usehooks-ts';
+import { truncateString } from '@/utils/string';
 
 type DashboardHeaderProps = {
     header?: string;
@@ -23,16 +23,11 @@ function DashboardHeader({ header, user }: DashboardHeaderProps) {
 
     return (
         <div className="flex justify-between items-center w-full px-4 py-6 sm:px-4 md:px-6 lg:px-12 xl:px-20">
-
-            {
-                !isDesktop && <BackButton />
-            }
-
             <div className="text-lg font-medium tracking-widest uppercase">
                 {header && (
                     <header className="">
-                        <h2 className="text-xl font-semibold leading-tight">
-                            {header}
+                        <h2 className="text-base md:text-xl font-semibold leading-tight">
+                            {isDesktop ? header : truncateString(header, 20)}
                         </h2>
                     </header>
                 )}
@@ -50,7 +45,7 @@ function DashboardHeader({ header, user }: DashboardHeaderProps) {
                                             .slice(0, 2)
                                             .map((word) => word.charAt(0))
                                             .join('')
-.toUpperCase()
+                                            .toUpperCase()
                                     }
                                 </AvatarFallback>
                             </Avatar>
@@ -62,8 +57,8 @@ function DashboardHeader({ header, user }: DashboardHeaderProps) {
                     <DropdownMenuContent align="end">
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => logout()}
+                            className="cursor-pointer"
+                            onClick={() => logout()}
                         >
                             Log Out
                         </DropdownMenuItem>

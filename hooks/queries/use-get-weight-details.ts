@@ -1,3 +1,4 @@
+import { WEIGHT_ENTRY_QUERY_KEYS } from "@/config/query-keys";
 import axios from "@/lib/axios";
 import { TWeightChartData } from "@/types/WeightEntry";
 import { useQuery } from "@tanstack/react-query";
@@ -20,8 +21,7 @@ const fetchWeightDetails = async (params: TWeightDetailsRequest): Promise<TWeigh
 
 export const useGetWeightDetails = (params: TWeightDetailsRequest) => {
     return useQuery<TWeightDetailsResponse, Error>({
-        // queryKey: HABIT_QUERY_KEYS.list(params),
-        queryKey: ['weight-entries-details', params],
+        queryKey: WEIGHT_ENTRY_QUERY_KEYS.detail(params),
         queryFn: () => {
             return fetchWeightDetails(params);
         }

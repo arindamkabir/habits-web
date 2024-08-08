@@ -1,7 +1,5 @@
 import axios from "@/lib/axios";
-import { IErrorResponse } from "@/types/Error";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 
 export type StoreCategoryRequest = {
     name: string,
@@ -16,7 +14,7 @@ const createCategory = async (data: StoreCategoryRequest) => {
 export const useCreateCategory = (onSuccess: () => void) => {
     const queryClient = useQueryClient();
 
-    return useMutation<any, AxiosError<IErrorResponse>, StoreCategoryRequest>({
+    return useMutation({
         mutationFn: createCategory,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['categories'] })

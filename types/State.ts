@@ -1,4 +1,5 @@
-import { Habit, HabitWithEntries } from "./Habit";
+import { Entry } from "./Entry";
+import { Habit } from "./Habit";
 
 export type MiscState = {
     loading: boolean;
@@ -11,7 +12,11 @@ export type HabitState = {
     editHabitDrawerOpen: boolean;
     addCategoryDrawerOpen: boolean;
     saveEntryModalOpen: boolean;
-    selectedHabitToEntry: HabitWithEntries & { date: string } | null;
+    selectedHabitToEntry: {
+        habit: Habit;
+        currentEntry?: Entry
+        date: string;
+    } | null;
     habitListQueryParams: {
         search: string;
         start_date: string;
@@ -22,7 +27,7 @@ export type HabitState = {
     openEditHabitDrawer: (val: boolean) => void;
     openAddCategoryDrawer: (val: boolean) => void;
     openSaveEntryModal: (val: boolean) => void;
-    setSelectedHabitToEntry: (habit: HabitWithEntries, date: string) => void;
+    setSelectedHabitToEntry: (habit: Habit, date: string, entry?: Entry,) => void;
     setHabitListQueryParams: (params: { search: string, start_date: string, end_date: string }) => void;
     setShowingDates: (dates: Date[]) => void;
     resetHabitState: () => void;

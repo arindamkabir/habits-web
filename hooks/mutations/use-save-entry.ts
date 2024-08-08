@@ -1,9 +1,7 @@
-import { HABIT_QUERY_KEYS } from "@/config/query-keys";
+import { HABIT_ENTRY_QUERY_KEYS, HABIT_QUERY_KEYS } from "@/config/query-keys";
 import axios from "@/lib/axios";
 import { SaveEntryRequest } from "@/types/Entry";
-import { IErrorResponse } from "@/types/Error";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 
 const saveEntry = async (data: SaveEntryRequest) => {
     const response = await axios.post(`/api/habits/entries`, data);
@@ -13,18 +11,12 @@ const saveEntry = async (data: SaveEntryRequest) => {
 export const useSaveEntry = (onSuccess: () => void) => {
     const queryClient = useQueryClient();
 
-    return useMutation<any, AxiosError<IErrorResponse>, SaveEntryRequest>({
+    return useMutation({
         mutationFn: saveEntry,
-        onSuccess: (res) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: HABIT_QUERY_KEYS.all });
+            queryClient.invalidateQueries({ queryKey: HABIT_ENTRY_QUERY_KEYS.all });
             onSuccess();
         },
-        // onError: (err) => {
-        //     if (err.response?.status === 422 && err.response.data?.errors) {
-        //         for (const [key, value] of Object.entries(err.response.data?.errors)) {
-        //             setError(key as keyof ICreateHabitEntryRequest, { type: "custom", message: value[0] });
-        //         }
-        //     }
-        // }
     });
 }

@@ -5,7 +5,7 @@ import { cn } from '@/utils/classNames';
 type Props = {
     entry: {
         date: Date;
-        habitEntry: any;
+        habitEntry?: Entry;
     };
     textClass: string;
     bgClass: string;
@@ -22,7 +22,7 @@ export function HabitCalendarItem({
 }: Props) {
     const getColorClasses = (entry: {
         date: Date;
-        habitEntry: Entry | undefined;
+        habitEntry?: Entry | undefined;
     }, textClass: string, bgClass: string) => {
         if (entry.date.getMonth() !== currentMonth) return 'bg-zinc-950 text-zinc-400';
         return entry.habitEntry
@@ -34,13 +34,15 @@ export function HabitCalendarItem({
             : 'bg-zinc-600 text-zinc-400';
     };
 
+    if (!entry) return null;
+
     return (
         <div
-          className={cn(
+            className={cn(
                 'flex justify-center items-center rounded-lg h-8 w-8 text-[11.5px] font-semibold',
                 getColorClasses(entry, textClass, bgClass),
             )}
-          onClick={onClick}
+            onClick={onClick}
         >
             {formatDate(entry.date, 'd')}
         </div>

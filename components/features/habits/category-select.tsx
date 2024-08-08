@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { uuid } from 'uuidv4';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
- Command, CommandEmpty, CommandGroup, CommandInput, CommandItem,
+    Command, CommandEmpty, CommandGroup, CommandInput, CommandItem,
 } from '@/components/ui/command';
 
 import { cn } from '@/utils/classNames';
@@ -35,11 +35,11 @@ function CategorySelect({ value, onSelect, exclude }: CategorySelectProps) {
         <>
             {(isCategoriesPending || !categories)
                 ? (
-<FormControl>
+                    <FormControl>
                         <Button
-                          variant="outline"
-                          role="combobox"
-                          className={cn(
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
                                 'w-full justify-between',
                                 'text-muted-foreground bg-gray-200',
                             )}
@@ -47,16 +47,16 @@ function CategorySelect({ value, onSelect, exclude }: CategorySelectProps) {
                             Loading categories...
                             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
-</FormControl>
-)
+                    </FormControl>
+                )
                 : (
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                             <FormControl>
                                 <Button
-                                  variant="outline"
-                                  role="combobox"
-                                  className={cn(
+                                    variant="outline"
+                                    role="combobox"
+                                    className={cn(
                                         'w-full justify-between',
                                         !value && 'text-muted-foreground',
                                     )}
@@ -73,23 +73,23 @@ function CategorySelect({ value, onSelect, exclude }: CategorySelectProps) {
                         <PopoverContent className="p-0" side="bottom" align="center">
                             <Command>
                                 <CommandInput
-                                  placeholder="Search categories..."
-                                  className="h-9"
+                                    placeholder="Search categories..."
+                                    className="h-9"
                                 />
                                 <CommandEmpty>No category found.</CommandEmpty>
                                 <CommandGroup>
                                     {categories.map((category) => (
                                         <CommandItem
-                                          value={category.name}
-                                          key={`${loopKey}-${category.id}`}
-                                          onSelect={() => {
+                                            value={category.name}
+                                            key={`${loopKey}-${category.id}`}
+                                            onSelect={() => {
                                                 onSelect(category.id);
                                                 setOpen(false);
                                             }}
                                         >
                                             {category.name}
                                             <CheckIcon
-                                              className={cn(
+                                                className={cn(
                                                     'ml-auto h-4 w-4',
                                                     category.id === value
                                                         ? 'opacity-100'
@@ -102,9 +102,7 @@ function CategorySelect({ value, onSelect, exclude }: CategorySelectProps) {
                             </Command>
                         </PopoverContent>
                     </Popover>
-
                 )}
-
         </>
     );
 }

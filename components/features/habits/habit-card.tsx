@@ -17,7 +17,7 @@ type HabitCardProps = {
     dates: Date[];
 };
 
-export function HabitCard({ className, habit, dates }: HabitCardProps) {
+export function HabitCard({ className = '', habit, dates }: HabitCardProps) {
     const router = useRouter();
     const entries = useMemo(() => dates.map((date) => ({
         date,
@@ -29,8 +29,8 @@ export function HabitCard({ className, habit, dates }: HabitCardProps) {
 
     return (
         <Card
-          className={cn('w-full md:w-[380px]', className)}
-          onClick={() => router.push(`/habits/${habit.slug}`)}
+            className={cn('w-full md:w-[380px]', className)}
+            onClick={() => router.push(`/habits/${habit.slug}`)}
         >
             <CardHeader>
                 <CardTitle>{habit.name}</CardTitle>

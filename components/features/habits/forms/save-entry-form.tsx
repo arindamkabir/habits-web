@@ -2,8 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { useEffect, useMemo } from 'react';
-import { format } from 'date-fns';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     Form,
@@ -27,11 +26,7 @@ function SaveEntryForm() {
     const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
     const selectedHabitToEntry = useAppStore((state) => state.selectedHabitToEntry);
 
-    const existingEntry = useMemo(() => {
-        if (!selectedHabitToEntry) return undefined;
-        const found = selectedHabitToEntry.entries.find((entry) => format(entry.date, 'yyyy-MM-dd') === selectedHabitToEntry.date);
-        return found;
-    }, [selectedHabitToEntry]);
+    const existingEntry = selectedHabitToEntry?.currentEntry;
 
     const form = useForm<z.infer<typeof saveEntrySchema>>({
         resolver: zodResolver(saveEntrySchema),
@@ -48,7 +43,7 @@ function SaveEntryForm() {
         if (!selectedHabitToEntry) return;
 
         mutate({
-            habit_id: selectedHabitToEntry.id,
+            habit_id: selectedHabitToEntry.habit.id,
             date: selectedHabitToEntry.date,
             ...values,
         });
@@ -67,20 +62,20 @@ function SaveEntryForm() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
-                  control={form.control}
-                  name="entry"
-                  render={({ field }) => (
+                    control={form.control}
+                    name="entry"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Did you perform this habit on this day?</FormLabel>
                             <FormControl>
                                 {
-                                    selectedHabitToEntry?.entry_type === 'boolean' ? (
+                                    selectedHabitToEntry?.habit.entry_type === 'boolean' ? (
                                         <div>
                                             <ToggleGroup
-                                              type="single"
-                                              className="justify-start"
-                                              value={`${field.value}`}
-                                              onValueChange={field.onChange}
+                                                type="single"
+                                                className="justify-start"
+                                                value={`${field.value}`}
+                                                onValueChange={field.onChange}
                                             >
                                                 <ToggleGroupItem value="1">
                                                     Yes
@@ -90,7 +85,7 @@ function SaveEntryForm() {
                                                 </ToggleGroupItem>
                                             </ToggleGroup>
                                         </div>
-                                      )
+                                    )
                                         : <Input placeholder="Entry" {...field} />
                                 }
                             </FormControl>
@@ -99,9 +94,9 @@ function SaveEntryForm() {
                     )}
                 />
                 <FormField
-                  control={form.control}
-                  name="note"
-                  render={({ field }) => (
+                    control={form.control}
+                    name="note"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Note</FormLabel>
                             <FormControl>

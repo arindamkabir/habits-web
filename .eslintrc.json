@@ -1,18 +1,22 @@
 {
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "airbnb",
-    // "airbnb/hooks",
-    "airbnb-typescript",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
-    "linebreak-style": "off",
-    "@typescript-eslint/indent": "off",
-    "react/jsx-indent": "off",
-    "react/jsx-props-no-spreading": "off"
+    "no-unused-vars": "warn",
+    "no-multiple-empty-lines": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "no-console": "error",
+    "no-debugger": "error",
+    "no-alert": "error",
+    "no-undef": "warn",
+    "no-trailing-spaces": "error",
+    "no-multi-spaces": "error"
   }
 }

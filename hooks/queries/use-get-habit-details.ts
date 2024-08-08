@@ -21,7 +21,8 @@ export const useGetHabitDetails = ({ slug }: HabitListRequest) => {
         queryKey: HABIT_QUERY_KEYS.detail(slug),
         queryFn: () => {
             return fetchHabitDetails(slug);
-        }
+        },
+        enabled: !!slug,
     });
 };
 

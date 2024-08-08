@@ -2,9 +2,9 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { getCookie, setCookie } from 'cookies-next';
 import {
- DehydratedState, HydrationBoundary, QueryClient, dehydrate,
+    DehydratedState, HydrationBoundary, QueryClient, dehydrate,
 } from '@tanstack/react-query';
-import { habitDetailsPrefetchQuery } from '@/hooks/queries/use-get-habit-details';
+import { habitDetailsPrefetchQuery, useGetHabitDetails } from '@/hooks/queries/use-get-habit-details';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { HabitCalendar } from '@/components/features/habits/calendar/habit-calendar';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
@@ -45,16 +45,22 @@ function HabitDetailsPage({
     dehydratedState,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter();
+    const { data: habitDetails } = useGetHabitDetails({ slug: router.query.slug as string });
 
     return (
-        <DashboardLayout>
+        <DashboardLayout
+            header={'Habits'}
+        >
             <HydrationBoundary state={dehydratedState}>
+                <div className="text-lg font-semibold mb-4">
+                    {habitDetails?.data.name}
+                </div>
                 <div className="space-y-2">
                     <HabitCalendar
-                      slug={router.query.slug as string}
+                        slug={router.query.slug as string}
                     />
                     <HabitMonthlyChart
-                      slug={router.query.slug as string}
+                        slug={router.query.slug as string}
                     />
                 </div>
                 <SaveEntryModal />
