@@ -1,35 +1,26 @@
+import { colors } from '@/config/colors';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { InfinitySpin } from 'react-loader-spinner';
+import { ProgressBar } from 'react-loader-spinner';
 
-function PageLoader() {
-    const [mounted, setMounted] = useState<boolean>(false);
+function PageLoader({ isHidden }: { isHidden?: boolean }) {
     const { theme } = useTheme();
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) {
-        return null;
-    }
+    if (isHidden) return null;
 
     return (
-        <div className="fixed inset-0 h-screen w-screen flex justify-center items-center bg-white dark:bg-gray-950" style={{ zIndex: 9999999 }}>
-            {
-                theme === 'dark' ? (
-                    <InfinitySpin
-                      width="120"
-                      color="white"
-                    />
-                ) : (
-                    <InfinitySpin
-                      width="120"
-                      color="black"
-                    />
-                )
+        <div className="fixed inset-0 h-screen w-screen flex flex-col justify-center items-center bg-white dark:bg-gray-950" style={{ zIndex: 9999999 }}>
+            <ProgressBar
+                visible={true}
+                height="80"
+                width="80"
+                barColor={colors.teal[500]}
+                borderColor={theme === 'dark' ? "white" : "black"}
+                ariaLabel="progress-bar-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+            />
 
-            }
+            <p className="text-center text-zinc-950 dark:text-zinc-50 text-sm mt-4">Loading...</p>
         </div>
     );
 }

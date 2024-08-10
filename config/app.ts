@@ -1,3 +1,5 @@
+export const PAGE_LOADER_THRESHOLD = 300; // in milliseconds
+
 export const timelineOptions = [
     'monthly',
     'weekly',
