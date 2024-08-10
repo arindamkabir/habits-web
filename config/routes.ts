@@ -7,5 +7,5 @@ export const routes = {
     health: {
         index: '/health',
     },
-    settings: '/'
+    settings: '/settings'
 };

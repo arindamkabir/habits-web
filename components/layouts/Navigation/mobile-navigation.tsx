@@ -1,51 +1,72 @@
 import {
- CalendarCheck2Icon, CogIcon, HeartPulseIcon, HomeIcon,
+    CalendarCheck2Icon, CogIcon, HeartPulseIcon, HomeIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { routes } from '@/config/routes';
+import { cn } from '@/utils/classNames';
+import { useRouter } from 'next/router';
 
-export function MobileNavigation() {
+const NavLink = ({
+    href,
+    icon,
+    text,
+    active
+}: {
+    href: string;
+    icon: React.ReactNode;
+    text: string;
+    active: boolean;
+}) => (
+    <div className="flex-1 group">
+        <Link
+            href={href}
+            className=""
+        >
+            <div className={cn("flex flex-col items-center justify-center space-y-2 px-2 py-2 rounded-lg mx-3 transition-all duration-300",
+                active ? "bg-white text-zinc-950" : ""
+            )}>
+                {icon}
+                <span className="block text-[11px]">
+                    {text}
+                </span>
+            </div>
+        </Link>
+    </div>
+);
+
+
+export const MobileNavigation = () => {
+    const { pathname } = useRouter();
+
     return (
         <div className="w-full max-w-md mx-auto fixed inset-x-0 bottom-0 md:hidden ">
-            <div className="py-4 px-3  bg-white text-zinc-950 dark:border-zinc-800 dark:bg-zinc-950/95 dark:text-zinc-50 shadow-lg ">
+            <div className="pb-3 pt-2 px-3 bg-white text-zinc-950 dark:border-zinc-800 dark:bg-zinc-950/90 dark:text-zinc-50 shadow-lg">
                 <div className="flex">
-                    <div className="flex-1 group">
-                        <Link
-                          href={routes.dashboard}
-                          className="flex flex-col items-center justify-center px-4 pt-2 space-y-1.5 border-b-2 border-transparent"
-                        >
-                            <HomeIcon className="w-4 h-4" />
-                            <span className="block text-[11px] ">Home</span>
-                        </Link>
-                    </div>
-                    <div className="flex-1 group">
-                        <Link
-                          href={routes.habits.index}
-                          className="flex flex-col items-center justify-center px-4 pt-2 space-y-1.5 border-b-2 border-transparent"
-                        >
-                            <CalendarCheck2Icon className="w-4 h-4" />
-                            <span className="block text-xs">Habits</span>
-                        </Link>
-                    </div>
-                    <div className="flex-1 group">
-                        <Link
-                          href={routes.health.index}
-                          className="flex flex-col items-center justify-center px-4 pt-2 space-y-1.5 border-b-2 border-transparent"
-                        >
-                            <HeartPulseIcon className="w-4 h-4" />
-                            <span className="block text-xs">Health</span>
-                        </Link>
-                    </div>
-                    <div className="flex-1 group">
-                        <Link
-                          href={routes.settings}
-                          className="flex flex-col items-center justify-center px-4 pt-2 space-y-1.5 border-b-2 border-transparent"
-                        >
-                            <CogIcon className="w-4 h-4" />
-                            <span className="block text-xs">Settings</span>
-                        </Link>
-                    </div>
+                    <NavLink
+                        href={routes.dashboard}
+                        icon={<HomeIcon className="w-4 h-4" />}
+                        text="Home"
+                        active={pathname === routes.dashboard}
+                    />
+                    <NavLink
+                        href={routes.habits.index}
+                        icon={<CalendarCheck2Icon className="w-4 h-4" />}
+                        text="Habits"
+                        active={pathname.startsWith(routes.habits.index)}
+                    />
+                    <NavLink
+                        href={routes.health.index}
+                        icon={<HeartPulseIcon className="w-4 h-4" />}
+                        text="Health"
+                        active={pathname.startsWith(routes.health.index)}
+                    />
+                    <NavLink
+                        href={routes.settings}
+                        icon={<CogIcon className="w-4 h-4" />}
+                        text="Settings"
+                        active={pathname.startsWith(routes.settings)}
+                    />
                 </div>
             </div>
         </div>
