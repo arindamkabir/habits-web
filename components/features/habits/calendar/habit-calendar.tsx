@@ -5,9 +5,9 @@ import {
     Card,
     CardContent,
     CardHeader,
+    CardTitle,
 } from '@/components/ui/card';
 import { cn } from '@/utils/classNames';
-import { bgClasses, textClasses } from '@/config/colors';
 import { generateDatesByMonth, weekDayNames } from '@/utils/dates';
 import useAppStore from '@/store/store';
 import { HabitCalendarItem } from './habit-calendar-item';
@@ -49,9 +49,6 @@ export function HabitCalendar({ slug }: Props) {
         ),
     }))), [dates, entryListData?.data]);
 
-    const bgClass = bgClasses[habitDetails?.data.category.color as keyof typeof bgClasses];
-    const textClass = textClasses[habitDetails?.data.category.color as keyof typeof textClasses];
-
     if (!habitDetails) return null;
 
     return (
@@ -59,6 +56,7 @@ export function HabitCalendar({ slug }: Props) {
             className={cn('w-full md:w-[380px]')}
         >
             <CardHeader className="!flex-row justify-between items-center space-y-0">
+                <CardTitle>Calendar</CardTitle>
                 <div className="flex space-x-5">
                     <MonthDropdown
                         selectedMonth={selectedMonth}
@@ -88,6 +86,7 @@ export function HabitCalendar({ slug }: Props) {
                                     week.map((entry) => (
                                         <HabitCalendarItem
                                             key={entry.date.toString()}
+                                            entryType={habitDetails.data.entry_type}
                                             onClick={() => {
                                                 openSaveEntryModal(true);
                                                 setSelectedHabitToEntry(
@@ -97,9 +96,7 @@ export function HabitCalendar({ slug }: Props) {
                                                 );
                                             }}
                                             entry={entry}
-                                            textClass={textClass}
-                                            bgClass={bgClass}
-                                            currentMonth={new Date().getMonth()}
+                                            currentMonth={monthOptions.indexOf(selectedMonth)}
                                         />
                                     ))
                                 }
