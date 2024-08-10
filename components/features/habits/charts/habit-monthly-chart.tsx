@@ -1,13 +1,9 @@
-import { TrendingUp } from 'lucide-react';
-import {
-    CartesianGrid, Line, LineChart, XAxis,
-} from 'recharts';
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+
 import { useState } from 'react';
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
@@ -25,9 +21,9 @@ import { TimelineDropdown } from '../../chart/timeline-dropdown';
 const chartConfig = {
     entry: {
         label: 'Entry',
-        color: colors.rose['500'],
-    },
-} satisfies ChartConfig;
+        color: colors.teal['500'],
+    }
+} satisfies ChartConfig
 
 type Props = {
     slug: string;
@@ -41,8 +37,7 @@ export function HabitMonthlyChart({ slug }: Props) {
         <Card>
             <CardHeader className="flex-row justify-between items-start space-y-0">
                 <div className="space-y-1.5">
-                    <CardTitle>Line Chart</CardTitle>
-                    <CardDescription>January - June 2024</CardDescription>
+                    <CardTitle>Trends</CardTitle>
                 </div>
                 <TimelineDropdown
                     timeline={chartTimeline}
@@ -51,7 +46,7 @@ export function HabitMonthlyChart({ slug }: Props) {
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
-                    <LineChart
+                    <AreaChart
                         accessibilityLayer
                         data={chartData?.data ?? []}
                         margin={{
@@ -65,32 +60,34 @@ export function HabitMonthlyChart({ slug }: Props) {
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                            tickFormatter={(value) => value}
+                            tickFormatter={(value) => value.slice(0, 3)}
                         />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent label="Value" />}
-                        />
-                        <Line
+                        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                        <defs>
+                            <linearGradient id="fillEntry" x1="0" y1="0" x2="0" y2="1">
+                                <stop
+                                    offset="5%"
+                                    stopColor={colors.teal['400']}
+                                    stopOpacity={0.8}
+                                />
+                                <stop
+                                    offset="95%"
+                                    stopColor={colors.teal['400']}
+                                    stopOpacity={0.1}
+                                />
+                            </linearGradient>
+                        </defs>
+                        <Area
                             dataKey="value"
                             type="natural"
-                            stroke={colors.rose['500']}
-                            strokeWidth={2}
-                            dot={false}
+                            fill="url(#fillEntry)"
+                            fillOpacity={0.4}
+                            stroke={colors.teal['500']}
+                            stackId="a"
                         />
-                    </LineChart>
+                    </AreaChart>
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="flex-col items-start gap-2 text-sm">
-                <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month
-                    {' '}
-                    <TrendingUp className="h-4 w-4" />
-                </div>
-                <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
-                </div>
-            </CardFooter>
         </Card>
     );
 }

@@ -8,8 +8,10 @@ import { habitDetailsPrefetchQuery, useGetHabitDetails } from '@/hooks/queries/u
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { HabitCalendar } from '@/components/features/habits/calendar/habit-calendar';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
-import { HabitMonthlyChart } from '@/components/features/habits/chart/habit-monthly-chart';
+import { HabitMonthlyChart } from '@/components/features/habits/charts/habit-monthly-chart';
 import { habitChartPrefetchQuery } from '@/hooks/queries/use-get-habit-chart';
+import Head from 'next/head';
+import { HabitPieChart } from '@/components/features/habits/charts/habit-pie-chart';
 
 export const getServerSideProps = (async (context) => {
     const queryClient = new QueryClient();
@@ -51,15 +53,21 @@ function HabitDetailsPage({
         <DashboardLayout
             header={'Habits'}
         >
+            <Head>
+                <title>{habitDetails?.data.name} | Habits</title>
+            </Head>
             <HydrationBoundary state={dehydratedState}>
                 <div className="text-lg font-semibold mb-4">
                     {habitDetails?.data.name}
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-6">
                     <HabitCalendar
                         slug={router.query.slug as string}
                     />
                     <HabitMonthlyChart
+                        slug={router.query.slug as string}
+                    />
+                    <HabitPieChart
                         slug={router.query.slug as string}
                     />
                 </div>
