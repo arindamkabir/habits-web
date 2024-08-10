@@ -37,7 +37,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   }));
 
   useEffect(() => {
-    let timer: NodeJS.Timeout | undefined;
+    let timer: ReturnType<typeof setTimeout>;
 
     const handleRouteChangeStart = () => timer = setTimeout(() => setPageLoading(true), PAGE_LOADER_THRESHOLD);
 

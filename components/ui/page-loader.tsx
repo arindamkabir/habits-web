@@ -1,11 +1,18 @@
 import { colors } from '@/config/colors';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { ProgressBar } from 'react-loader-spinner';
 
 function PageLoader({ isHidden }: { isHidden?: boolean }) {
     const { theme } = useTheme();
 
-    if (isHidden) return null;
+    const [mounted, setMounted] = useState<boolean>(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted || isHidden) return null;
 
     return (
         <div className="fixed inset-0 h-screen w-screen flex flex-col justify-center items-center bg-white dark:bg-gray-950" style={{ zIndex: 9999999 }}>
