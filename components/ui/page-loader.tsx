@@ -27,7 +27,7 @@ function PageLoader({ isHidden }: { isHidden?: boolean }) {
                 wrapperClass=""
             />
 
-            <p className="text-center text-zinc-950 dark:text-zinc-50 text-sm mt-4">Loading...</p>
+            <p className="text-center text-zinc-950 dark:text-zinc-50 text-sm mt-2">Loading...</p>
         </div>
     );
 }

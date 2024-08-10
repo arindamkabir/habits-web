@@ -9,7 +9,16 @@ export type HabitPieChartRequest = {
 }
 
 export type HabitPieChartResponse = {
-    data: Record<string, string>[];
+    data: [
+        {
+            label: "Yes";
+            value: number;
+        },
+        {
+            label: "No";
+            value: number;
+        },
+    ];
 };
 
 const fetchHabitPieChart = async (params: HabitPieChartRequest): Promise<HabitPieChartResponse> => {

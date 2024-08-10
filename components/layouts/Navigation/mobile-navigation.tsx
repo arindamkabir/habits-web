@@ -41,7 +41,7 @@ export const MobileNavigation = () => {
 
     return (
         <div className="w-full max-w-md mx-auto fixed inset-x-0 bottom-0 md:hidden ">
-            <div className="pb-3 pt-2 px-3 bg-white text-zinc-950 dark:bg-zinc-950/60 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 dark:text-zinc-50 shadow-lg">
+            <div className="pb-3 pt-2 px-3 bg-white text-zinc-950 dark:bg-zinc-950/40 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/20 dark:text-zinc-50 shadow-lg">
                 <div className="flex">
                     <NavLink
                         href={routes.dashboard}

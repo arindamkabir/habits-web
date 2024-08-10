@@ -11,24 +11,25 @@ import { cn } from '@/utils/classNames';
 import { generateDatesByMonth, weekDayNames } from '@/utils/dates';
 import useAppStore from '@/store/store';
 import { HabitCalendarItem } from './habit-calendar-item';
-import { MonthType, monthOptions } from '@/config/app';
+import { MonthType, MONTH_OPTIONS } from '@/config/app';
 import { useGetHabitEntryList } from '@/hooks/queries/use-get-habit-entries';
 import { MonthDropdown } from './month-dropdown';
 import { YearDropdown } from './year-dropdown';
+import { DEFAULT_HABIT_CALENDAR_MONTH, DEFAULT_HABIT_CALENDAR_YEAR } from '@/config/habits';
 
 type Props = {
     slug: string;
 };
 
 export function HabitCalendar({ slug }: Props) {
-    const [selectedMonth, setSelectedMonth] = useState<MonthType>(monthOptions[new Date().getMonth()]);
-    const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+    const [selectedMonth, setSelectedMonth] = useState<MonthType>(DEFAULT_HABIT_CALENDAR_MONTH);
+    const [selectedYear, setSelectedYear] = useState<number>(DEFAULT_HABIT_CALENDAR_YEAR);
 
     const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
     const setSelectedHabitToEntry = useAppStore((state) => state.setSelectedHabitToEntry);
 
     const firstDayOfMonth = useMemo(
-        () => new Date(selectedYear, monthOptions.indexOf(selectedMonth), 1),
+        () => new Date(selectedYear, MONTH_OPTIONS.indexOf(selectedMonth), 1),
         [selectedYear, selectedMonth]
     );
 
@@ -40,7 +41,6 @@ export function HabitCalendar({ slug }: Props) {
         start_date: formatDate(firstDayOfMonth, 'yyyy-MM-01'),
         end_date: formatDate(lastDayOfMonth(firstDayOfMonth), 'yyyy-MM-dd'),
     });
-
 
     const entries = useMemo(() => dates.map((week) => week.map((date) => ({
         date,
@@ -96,7 +96,7 @@ export function HabitCalendar({ slug }: Props) {
                                                 );
                                             }}
                                             entry={entry}
-                                            currentMonth={monthOptions.indexOf(selectedMonth)}
+                                            currentMonth={MONTH_OPTIONS.indexOf(selectedMonth)}
                                         />
                                     ))
                                 }

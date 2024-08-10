@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
-import { MonthType, monthOptions } from '@/config/app';
+import { MonthType, MONTH_OPTIONS } from '@/config/app';
 import { cn } from '@/utils/classNames';
 
 type MonthDropdownProps = {
@@ -36,7 +36,7 @@ export const MonthDropdown = ({
                 align='end'
             >
                 {
-                    monthOptions.map((value) => (
+                    MONTH_OPTIONS.map((value) => (
                         <DropdownMenuItem
                             key={`calender-month-${value}`}
                             className={cn(

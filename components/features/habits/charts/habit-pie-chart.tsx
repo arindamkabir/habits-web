@@ -20,6 +20,8 @@ import { colors } from "@/config/colors"
 import { useGetHabitPieChart } from "@/hooks/queries/use-get-habit-pie-chart"
 import { useMemo, useState } from "react"
 import { ChartTimelineType, chartTimelineWithLabels } from "@/config/app"
+import { Loader } from "@/components/ui/loader"
+import { DEFAULT_HABIT_PIE_CHART_PERIOD } from "@/config/habits"
 
 const chartConfig = {
     Yes: {
@@ -39,9 +41,9 @@ type Props = {
 export const HabitPieChart = ({
     slug,
 }: Props) => {
-    const [period, setPeriod] = useState<ChartTimelineType>('month');
+    const [period, setPeriod] = useState<ChartTimelineType>(DEFAULT_HABIT_PIE_CHART_PERIOD);
 
-    const { data: chartData } = useGetHabitPieChart({ slug, time_period: period });
+    const { data: chartData, isFetching } = useGetHabitPieChart({ slug, time_period: period });
 
     const formattedData = useMemo(() => {
         if (!chartData?.data) return [];
@@ -61,15 +63,30 @@ export const HabitPieChart = ({
                     config={chartConfig}
                     className="mx-auto aspect-square max-h-[250px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
                 >
-                    <PieChart>
-                        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                        <Pie
-                            data={formattedData}
-                            dataKey="value"
-                            label
-                            nameKey="label"
-                        />
-                    </PieChart>
+                    {
+                        isFetching
+                            ?
+                            <Loader text="Loading Chart..." />
+                            :
+                            (
+                                chartData?.data[0].value === 0 && chartData?.data[1].value === 0
+                                    ?
+                                    <div className="flex items-center justify-center h-full text-zinc-950 dark:text-zinc-50">
+                                        No data available
+                                    </div>
+                                    :
+                                    <PieChart>
+                                        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                                        <Pie
+                                            data={formattedData}
+                                            dataKey="value"
+                                            label
+                                            nameKey="label"
+                                        />
+                                    </PieChart>
+                            )
+
+                    }
                 </ChartContainer>
             </CardContent>
             <CardFooter className="flex-col gap-2 text-sm">
@@ -87,6 +104,7 @@ export const HabitPieChart = ({
                                 key={`pie-chart-timeline-${item.value}`}
                                 value={item.value}
                                 className="text-xs"
+                                disabled={isFetching}
                             >
                                 {item.label}
                             </ToggleGroupItem>

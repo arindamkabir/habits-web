@@ -31,7 +31,7 @@ export const useGetHabitEntryList = (params: HabitEntryListRequest) => (
     })
 );
 
-export const habitDetailsPrefetchQuery = (params: HabitEntryListRequest) => ({
+export const habitEntryListPrefetchQuery = (params: HabitEntryListRequest) => ({
     queryFn: () => fetchHabitEntryList(params),
     queryKey: HABIT_ENTRY_QUERY_KEYS.list(params)
 })

@@ -12,6 +12,11 @@ import { HabitMonthlyChart } from '@/components/features/habits/charts/habit-mon
 import { habitChartPrefetchQuery } from '@/hooks/queries/use-get-habit-chart';
 import Head from 'next/head';
 import { HabitPieChart } from '@/components/features/habits/charts/habit-pie-chart';
+import { habitEntryListPrefetchQuery } from '@/hooks/queries/use-get-habit-entries';
+import { DEFAULT_HABIT_CALENDAR_MONTH, DEFAULT_HABIT_CALENDAR_YEAR, DEFAULT_HABIT_PIE_CHART_PERIOD } from '@/config/habits';
+import { MONTH_OPTIONS } from '@/config/app';
+import { formatDate, lastDayOfMonth } from 'date-fns';
+import { habitPieChartPrefetchQuery } from '@/hooks/queries/use-get-habit-pie-chart';
 
 export const getServerSideProps = (async (context) => {
     const queryClient = new QueryClient();
@@ -28,13 +33,28 @@ export const getServerSideProps = (async (context) => {
         || typeof context?.params?.slug !== 'string'
     ) return { notFound: true };
 
-    await queryClient.prefetchQuery(habitDetailsPrefetchQuery({
-        slug: context.params.slug,
-    }));
+    const firstDayOfMonth = new Date(
+        DEFAULT_HABIT_CALENDAR_YEAR(),
+        MONTH_OPTIONS.indexOf(DEFAULT_HABIT_CALENDAR_MONTH()), 1
+    );
 
-    await queryClient.prefetchQuery(habitChartPrefetchQuery({
-        slug: context.params.slug,
-    }));
+    await Promise.all([
+        queryClient.prefetchQuery(habitDetailsPrefetchQuery({
+            slug: context.params.slug,
+        })),
+        queryClient.prefetchQuery(habitEntryListPrefetchQuery({
+            slug: context.params.slug,
+            start_date: formatDate(firstDayOfMonth, 'yyyy-MM-01'),
+            end_date: formatDate(lastDayOfMonth(firstDayOfMonth), 'yyyy-MM-dd'),
+        })),
+        queryClient.prefetchQuery(habitChartPrefetchQuery({
+            slug: context.params.slug,
+        })),
+        queryClient.prefetchQuery(habitPieChartPrefetchQuery({
+            slug: context.params.slug,
+            time_period: DEFAULT_HABIT_PIE_CHART_PERIOD,
+        })),
+    ]);
 
     return {
         props: {

@@ -49,7 +49,7 @@ export const chartTimelineWithLabels: {
         },
     ];
 
-export const monthOptions = [
+export const MONTH_OPTIONS = [
     'January',
     'February',
     'March',
@@ -64,4 +64,4 @@ export const monthOptions = [
     'December',
 ] as const;
 
-export type MonthType = typeof monthOptions[number];
+export type MonthType = typeof MONTH_OPTIONS[number];
