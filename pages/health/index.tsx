@@ -1,25 +1,25 @@
 import React from 'react';
-import { WeightChart } from '@/components/features/weight-tracker/WeightChart';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import {
- Card, CardContent, CardHeader, CardTitle,
-} from '@/components/ui/card';
+import { DailyWaterSlider } from '@/components/features/health/water/daily-water-slider';
+import { format } from 'date-fns';
 
-function Health() {
+const HealthPage = () => {
     return (
         <DashboardLayout
-          header="Weight Tracker"
+            header="Weight Tracker"
         >
-            <Card className="col-span-4">
-                <CardHeader>
-                    <CardTitle>Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2">
-                    <WeightChart />
-                </CardContent>
-            </Card>
+            {/* <div className="flex justify-end">
+                <Button variant="ghost">
+                    <span className='w-7 h-7 mr-2 rounded-full bg-zinc-50 flex justify-center items-center'>
+                        <PlusIcon className='w-5 h-5 text-zinc-950' />
+                    </span>
+                    <span>Log entry</span>
+                </Button>
+            </div> */}
+
+            <DailyWaterSlider date={format(Date.now(), 'y-MM-dd')} />
         </DashboardLayout>
     );
 }
 
-export default Health;
+export default HealthPage;

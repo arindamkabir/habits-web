@@ -30,3 +30,11 @@ export const WEIGHT_ENTRY_QUERY_KEYS = {
     details: () => [...WEIGHT_ENTRY_QUERY_KEYS.all, 'detail'] as const,
     detail: (slug: string | undefined) => [...WEIGHT_ENTRY_QUERY_KEYS.details(), slug] as const,
 };
+
+export const WATER_ENTRY_QUERY_KEYS = {
+    all: ['water-entries'] as const,
+    lists: () => [...WATER_ENTRY_QUERY_KEYS.all, 'list'] as const,
+    list: (params: WeightEntryListRequest) => [...WATER_ENTRY_QUERY_KEYS.lists(), { params }] as const,
+    details: () => [...WATER_ENTRY_QUERY_KEYS.all, 'detail'] as const,
+    detail: (date: string | undefined) => [...WATER_ENTRY_QUERY_KEYS.details(), date] as const,
+};
