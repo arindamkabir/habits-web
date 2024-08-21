@@ -1,9 +1,6 @@
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
     Form,
@@ -20,8 +17,11 @@ import { useStoreHabit } from '@/hooks/mutations/use-store-habit';
 import useAppStore from '@/store/store';
 import CategorySelect from '../category-select';
 import { storeHabitSchema } from '@/schemas/habit/store-habit';
+import { useToast } from '@/components/ui/use-toast';
 
 function AddHabitForm() {
+    const { toast } = useToast();
+
     const openAddHabitDrawer = useAppStore((state) => state.openAddHabitDrawer);
     const openAddCategoryDrawer = useAppStore((state) => state.openAddCategoryDrawer);
 
@@ -38,7 +38,9 @@ function AddHabitForm() {
     const { mutate, isPending: isCreating } = useStoreHabit(
         () => {
             openAddHabitDrawer(false);
-            toast.success('Habit added successfully.');
+            toast({
+                title: 'Habit created successfully'
+            });
         },
     );
 
@@ -50,9 +52,9 @@ function AddHabitForm() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
@@ -63,9 +65,9 @@ function AddHabitForm() {
                     )}
                 />
                 <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Description</FormLabel>
                             <FormControl>
@@ -76,15 +78,15 @@ function AddHabitForm() {
                     )}
                 />
                 <FormField
-                  control={form.control}
-                  name="category_id"
-                  render={({ field }) => (
+                    control={form.control}
+                    name="category_id"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Category</FormLabel>
                             <div className="flex space-x-2 items-center">
                                 <CategorySelect
-                                  value={field.value}
-                                  onSelect={(value) => form.setValue('category_id', value)}
+                                    value={field.value}
+                                    onSelect={(value) => form.setValue('category_id', value)}
                                 />
                                 <Button type="button" onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
                             </div>
@@ -94,16 +96,16 @@ function AddHabitForm() {
                 />
 
                 <FormField
-                  control={form.control}
-                  name="entry_type"
-                  render={({ field }) => (
+                    control={form.control}
+                    name="entry_type"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Entry Type</FormLabel>
                             <FormControl>
                                 <RadioGroup
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                  className="flex flex-col space-y-1"
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                    className="flex flex-col space-y-1"
                                 >
                                     <FormItem className="flex items-center space-x-3 space-y-0">
                                         <FormControl>

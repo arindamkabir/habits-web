@@ -9,6 +9,7 @@ import { ThemeProvider } from 'next-themes';
 import PageLoader from '@/components/ui/page-loader';
 import { useRouter } from 'next/router';
 import { PAGE_LOADER_THRESHOLD } from '@/config/app';
+import { Toaster } from '@/components/ui/toaster';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['200', '400', '500', '600', '700'], variable: '--font-poppins' });
 
@@ -80,6 +81,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <main className={`${poppins.className} bg-zinc-950`}>
           <Component {...pageProps} />
         </main>
+        <Toaster />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </ThemeProvider>

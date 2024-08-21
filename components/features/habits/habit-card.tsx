@@ -7,9 +7,10 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { bgClasses, textClasses } from '@/config/colors';
 import { HabitWithEntries } from '@/types/Habit';
 import { cn } from '@/utils/classNames';
+import { HabitCalendarItem } from './calendar/habit-calendar-item';
+import useAppStore from '@/store/store';
 
 type HabitCardProps = {
     className?: string;
@@ -19,44 +20,48 @@ type HabitCardProps = {
 
 export function HabitCard({ className = '', habit, dates }: HabitCardProps) {
     const router = useRouter();
+
+    const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
+    const setSelectedHabitToEntry = useAppStore((state) => state.setSelectedHabitToEntry);
+
     const entries = useMemo(() => dates.map((date) => ({
         date,
-        habitEntry: habit.entries.find((entry) => formatDate(new Date(entry.date), 'yyyy-MM-dd') === formatDate(date, 'yyyy-MM-dd')),
+        habitEntry: habit.entries.find(
+            entry => formatDate(entry.date, 'yyyy-MM-dd') === formatDate(date, 'yyyy-MM-dd')
+        ),
     })), [dates, habit.entries]);
-
-    const bgClass = bgClasses[habit.category.color as keyof typeof bgClasses];
-    const textClass = textClasses[habit.category.color as keyof typeof textClasses];
 
     return (
         <Card
             className={cn('w-full md:w-[380px]', className)}
-            onClick={() => router.push(`/habits/${habit.slug}`)}
         >
             <CardHeader>
-                <CardTitle>{habit.name}</CardTitle>
+                <CardTitle
+                    onClick={() => router.push(`/habits/${habit.slug}`)}
+                    className="cursor-pointer"
+                >
+                    {habit.name}
+                </CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <div className="flex justify-between">
+                <div className="flex justify-between font-normal">
                     {
                         entries.map((item) => (
-                            <div key={`${habit.id}-${item.date.toString()}`} className="flex flex-col items-center space-y-1">
-                                <div className="text-xs">
-                                    {formatDate(item.date, 'EEE')}
-                                </div>
-                                <div className={cn(
-                                    'flex justify-center items-center rounded-full h-8 w-8 text-xs',
-                                    item.habitEntry
-                                        ? (
-                                            item.habitEntry.entry
-                                                ? `${bgClass} text-white`
-                                                : `bg-zinc-900 ${textClass}`
-                                        )
-                                        : 'bg-zinc-600 text-zinc-400',
-                                )}
-                                >
-                                    {formatDate(item.date, 'd')}
-                                </div>
-                            </div>
+                            <HabitCalendarItem
+                                key={`${habit.id}-${item.date.toString()}`}
+                                entryType={habit.entry_type}
+                                onClick={() => {
+                                    openSaveEntryModal(true);
+                                    setSelectedHabitToEntry(
+                                        habit,
+                                        formatDate(item.date, 'yyyy-MM-dd'),
+                                        item.habitEntry,
+                                    );
+                                }}
+                                entry={item}
+                                currentMonth={new Date().getMonth()}
+                                withDayName
+                            />
                         ))
                     }
                 </div>

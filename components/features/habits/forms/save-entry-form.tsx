@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { toast } from 'sonner';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,8 +20,11 @@ import useAppStore from '@/store/store';
 import { saveEntrySchema } from '@/schemas/habit/save-entry';
 import { useSaveEntry } from '@/hooks/mutations/use-save-entry';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 
 function SaveEntryForm() {
+    const { toast } = useToast();
+
     const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
     const selectedHabitToEntry = useAppStore((state) => state.selectedHabitToEntry);
 
@@ -35,7 +37,9 @@ function SaveEntryForm() {
     const { mutate, isPending: isCreating } = useSaveEntry(
         () => {
             openSaveEntryModal(false);
-            toast.success('Entry added successfully.');
+            toast({
+                title: `Entry ${existingEntry ? 'updated' : 'added'} successfully.`,
+            });
         },
     );
 

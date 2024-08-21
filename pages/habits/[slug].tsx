@@ -84,12 +84,20 @@ function HabitDetailsPage({
                     <HabitCalendar
                         slug={router.query.slug as string}
                     />
-                    <HabitMonthlyChart
-                        slug={router.query.slug as string}
-                    />
-                    <HabitPieChart
-                        slug={router.query.slug as string}
-                    />
+                    {
+                        habitDetails?.data.entry_type === "number" && (
+                            <HabitMonthlyChart
+                                slug={router.query.slug as string}
+                            />
+                        )
+                    }
+                    {
+                        habitDetails?.data.entry_type === "boolean" && (
+                            <HabitPieChart
+                                slug={router.query.slug as string}
+                            />
+                        )
+                    }
                 </div>
                 <SaveEntryModal />
             </HydrationBoundary>

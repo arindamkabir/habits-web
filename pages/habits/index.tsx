@@ -1,4 +1,3 @@
-import { add, eachDayOfInterval, formatDate } from 'date-fns';
 import { PlusIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawer';
@@ -7,22 +6,17 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { Button } from '@/components/ui/button';
 import { useGetHabitList } from '@/hooks/queries/use-get-habits';
 import useAppStore from '@/store/store';
+import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
+import { DEFAULT_HABIT_LIST_DATES } from '@/config/habits';
+import { formatDate } from 'date-fns';
 
-const dates = eachDayOfInterval({
-    start: add(Date.now(), { days: -3 }),
-    end: add(Date.now(), { days: 3 }),
-});
-
-const startDate = formatDate(dates[0], 'yyyy-MM-dd');
-const endDate = formatDate(dates[dates.length - 1], 'yyyy-MM-dd');
-
-function HabitsPage() {
+const HabitsPage = () => {
     const setLoading = useAppStore((state) => state.setLoading);
     const openAddHabitDrawer = useAppStore((state) => state.openAddHabitDrawer);
 
     const { data: habitsList, isFetching } = useGetHabitList({
-        start_date: startDate,
-        end_date: endDate,
+        start_date: formatDate(DEFAULT_HABIT_LIST_DATES[0], 'yyyy-MM-dd'),
+        end_date: formatDate(DEFAULT_HABIT_LIST_DATES[DEFAULT_HABIT_LIST_DATES.length - 1], 'yyyy-MM-dd'),
     });
 
     useEffect(() => {
@@ -33,8 +27,8 @@ function HabitsPage() {
         <DashboardLayout header="Habits">
             <div className="flex justify-end mb-6">
                 <Button
-                  variant="secondary"
-                  onClick={() => openAddHabitDrawer(true)}
+                    variant="secondary"
+                    onClick={() => openAddHabitDrawer(true)}
                 >
                     <PlusIcon className="h-5 w-5" />
                 </Button>
@@ -43,14 +37,15 @@ function HabitsPage() {
                 {
                     !isFetching && habitsList?.data.map((habit) => (
                         <HabitCard
-                          key={habit.id}
-                          habit={habit}
-                          dates={dates}
+                            key={habit.id}
+                            habit={habit}
+                            dates={DEFAULT_HABIT_LIST_DATES}
                         />
                     ))
                 }
             </div>
             <AddHabitDrawer />
+            <SaveEntryModal />
         </DashboardLayout>
     );
 }
