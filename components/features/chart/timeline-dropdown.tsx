@@ -5,7 +5,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { timelineOptions, type TimelineType } from '@/config/app';
+import { chartTimelineWithLabelsAlt, type ChartTimelineWithLabelsType } from '@/config/app';
 import { capitalize } from '@/utils/string';
 import { cn } from '@/utils/classNames';
 
@@ -13,9 +13,9 @@ export const TimelineDropdown = ({
     timeline,
     setTimeline,
 }: {
-    timeline: TimelineType, setTimeline: (value: TimelineType) => void
+    timeline: ChartTimelineWithLabelsType, setTimeline: (value: ChartTimelineWithLabelsType) => void
 }) => {
-    const handleOnChange = (value: TimelineType) => {
+    const handleOnChange = (value: ChartTimelineWithLabelsType) => {
         setTimeline(value);
     };
     return (
@@ -26,7 +26,7 @@ export const TimelineDropdown = ({
                     variant="outline"
                     className='min-w-20'
                 >
-                    {capitalize(timeline)}
+                    {capitalize(timeline.label)}
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -34,16 +34,16 @@ export const TimelineDropdown = ({
                 align='end'
             >
                 {
-                    timelineOptions.map((value) => (
+                    chartTimelineWithLabelsAlt.map((item) => (
                         <DropdownMenuItem
-                            key={`timeline-${value}`}
+                            key={`timeline-${item.value}`}
                             className={cn(
                                 'text-xs py-2 justify-center',
-                                timeline === value ? 'bg-zinc-300 text-zinc-950' : ''
+                                timeline.value === item.value ? 'bg-zinc-300 text-zinc-950' : ''
                             )}
-                            onClick={() => handleOnChange(value)}
+                            onClick={() => handleOnChange(item)}
                         >
-                            {capitalize(value)}
+                            {capitalize(item.label)}
                         </DropdownMenuItem>
                     ))
                 }

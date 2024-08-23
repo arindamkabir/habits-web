@@ -49,6 +49,38 @@ export const chartTimelineWithLabels: {
         },
     ];
 
+export const chartTimelineWithLabelsAlt: {
+    label: string;
+    value: ChartTimelineType;
+}[] = [
+        {
+            label: 'This week',
+            value: 'week',
+        },
+        {
+            label: 'Last 2 weeks',
+            value: '2weeks',
+        },
+        {
+            label: 'This month',
+            value: 'month',
+        },
+        {
+            label: 'Last 3 months',
+            value: '3months',
+        },
+        {
+            label: 'Last 6 months',
+            value: '6months',
+        },
+        {
+            label: 'This year',
+            value: 'year',
+        },
+    ];
+
+export type ChartTimelineWithLabelsType = typeof chartTimelineWithLabels[number];
+
 export const MONTH_OPTIONS = [
     'January',
     'February',
