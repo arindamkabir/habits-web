@@ -1,6 +1,7 @@
 import { HabitEntryListRequest } from "@/hooks/queries/use-get-habit-entries";
 import { HabitPieChartRequest } from "@/hooks/queries/use-get-habit-pie-chart";
 import { HabitListRequest } from "@/hooks/queries/use-get-habits";
+import { WeightChartRequest } from "@/hooks/queries/use-get-weight-chart";
 import { WeightEntryListRequest } from "@/hooks/queries/use-get-weight-entries";
 
 export const HABIT_QUERY_KEYS = {
@@ -29,6 +30,8 @@ export const WEIGHT_ENTRY_QUERY_KEYS = {
     list: (params: WeightEntryListRequest) => [...WEIGHT_ENTRY_QUERY_KEYS.lists(), { params }] as const,
     details: () => [...WEIGHT_ENTRY_QUERY_KEYS.all, 'detail'] as const,
     detail: (slug: string | undefined) => [...WEIGHT_ENTRY_QUERY_KEYS.details(), slug] as const,
+    charts: () => [...WEIGHT_ENTRY_QUERY_KEYS.all, 'chart'] as const,
+    chart: (params: WeightChartRequest) => [...WEIGHT_ENTRY_QUERY_KEYS.charts(), params] as const,
 };
 
 export const WATER_ENTRY_QUERY_KEYS = {
@@ -37,4 +40,6 @@ export const WATER_ENTRY_QUERY_KEYS = {
     list: (params: WeightEntryListRequest) => [...WATER_ENTRY_QUERY_KEYS.lists(), { params }] as const,
     details: () => [...WATER_ENTRY_QUERY_KEYS.all, 'detail'] as const,
     detail: (date: string | undefined) => [...WATER_ENTRY_QUERY_KEYS.details(), date] as const,
+    charts: () => [...WATER_ENTRY_QUERY_KEYS.all, 'chart'] as const,
+    chart: () => [...WATER_ENTRY_QUERY_KEYS.charts()] as const,
 };
