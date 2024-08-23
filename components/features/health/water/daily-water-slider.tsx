@@ -27,8 +27,7 @@ export const DailyWaterSlider = ({
     });
 
     useEffect(() => {
-        if (!data) return;
-        setValue([data.data.entry]);
+        setValue([data?.data.entry || 0]);
     }, [data]);
 
     return (
