@@ -1,3 +1,4 @@
+import { HabitChartRequest } from "@/hooks/queries/use-get-habit-chart";
 import { HabitEntryListRequest } from "@/hooks/queries/use-get-habit-entries";
 import { HabitPieChartRequest } from "@/hooks/queries/use-get-habit-pie-chart";
 import { HabitListRequest } from "@/hooks/queries/use-get-habits";
@@ -12,7 +13,7 @@ export const HABIT_QUERY_KEYS = {
     details: () => [...HABIT_QUERY_KEYS.all, 'detail'] as const,
     detail: (slug: string | undefined) => [...HABIT_QUERY_KEYS.details(), slug] as const,
     charts: () => [...HABIT_QUERY_KEYS.all, 'chart'] as const,
-    chart: (slug: string | undefined) => [...HABIT_QUERY_KEYS.charts(), slug] as const,
+    chart: (slug: HabitChartRequest) => [...HABIT_QUERY_KEYS.charts(), slug] as const,
     pieCharts: () => [...HABIT_QUERY_KEYS.all, 'pie-chart'] as const,
     pieChart: (params: HabitPieChartRequest) => [...HABIT_QUERY_KEYS.pieCharts(), params] as const,
 };

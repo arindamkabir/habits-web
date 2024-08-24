@@ -8,15 +8,15 @@ import { habitDetailsPrefetchQuery, useGetHabitDetails } from '@/hooks/queries/u
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { HabitCalendar } from '@/components/features/habits/calendar/habit-calendar';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
-import { HabitMonthlyChart } from '@/components/features/habits/charts/habit-monthly-chart';
 import { habitChartPrefetchQuery } from '@/hooks/queries/use-get-habit-chart';
 import Head from 'next/head';
 import { HabitPieChart } from '@/components/features/habits/charts/habit-pie-chart';
 import { habitEntryListPrefetchQuery } from '@/hooks/queries/use-get-habit-entries';
-import { DEFAULT_HABIT_CALENDAR_MONTH, DEFAULT_HABIT_CALENDAR_YEAR, DEFAULT_HABIT_PIE_CHART_PERIOD } from '@/config/habits';
+import { DEFAULT_HABIT_BAR_CHART_TIMELINE, DEFAULT_HABIT_CALENDAR_MONTH, DEFAULT_HABIT_CALENDAR_YEAR, DEFAULT_HABIT_PIE_CHART_PERIOD } from '@/config/habits';
 import { MONTH_OPTIONS } from '@/config/app';
 import { formatDate, lastDayOfMonth } from 'date-fns';
 import { habitPieChartPrefetchQuery } from '@/hooks/queries/use-get-habit-pie-chart';
+import { HabitBarChart } from '@/components/features/habits/charts/habit-bar-chart';
 
 export const getServerSideProps = (async (context) => {
     const queryClient = new QueryClient();
@@ -49,6 +49,7 @@ export const getServerSideProps = (async (context) => {
         })),
         queryClient.prefetchQuery(habitChartPrefetchQuery({
             slug: context.params.slug,
+            time_period: DEFAULT_HABIT_BAR_CHART_TIMELINE.value,
         })),
         queryClient.prefetchQuery(habitPieChartPrefetchQuery({
             slug: context.params.slug,
@@ -86,7 +87,7 @@ function HabitDetailsPage({
                     />
                     {
                         habitDetails?.data.entry_type === "number" && (
-                            <HabitMonthlyChart
+                            <HabitBarChart
                                 slug={router.query.slug as string}
                             />
                         )
