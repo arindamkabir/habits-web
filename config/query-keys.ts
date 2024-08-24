@@ -1,6 +1,7 @@
 import { HabitEntryListRequest } from "@/hooks/queries/use-get-habit-entries";
 import { HabitPieChartRequest } from "@/hooks/queries/use-get-habit-pie-chart";
 import { HabitListRequest } from "@/hooks/queries/use-get-habits";
+import { WaterBarChartRequest } from "@/hooks/queries/use-get-water-bar-chart";
 import { WeightChartRequest } from "@/hooks/queries/use-get-weight-chart";
 import { WeightEntryListRequest } from "@/hooks/queries/use-get-weight-entries";
 
@@ -41,5 +42,5 @@ export const WATER_ENTRY_QUERY_KEYS = {
     details: () => [...WATER_ENTRY_QUERY_KEYS.all, 'detail'] as const,
     detail: (date: string | undefined) => [...WATER_ENTRY_QUERY_KEYS.details(), date] as const,
     charts: () => [...WATER_ENTRY_QUERY_KEYS.all, 'chart'] as const,
-    chart: () => [...WATER_ENTRY_QUERY_KEYS.charts()] as const,
+    chart: (params: WaterBarChartRequest) => [...WATER_ENTRY_QUERY_KEYS.charts(), params] as const,
 };

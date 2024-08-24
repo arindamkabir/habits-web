@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/utils/classNames';
 import { WeightLineChart } from '@/components/features/health/weight/weight-line-chart';
+import { WaterBarChart } from '@/components/features/health/water/water-bar-chart';
 
 const HealthPage = () => {
     const [popoverOpen, setPopoverOpen] = useState<boolean>(false);
@@ -19,8 +20,8 @@ const HealthPage = () => {
         <DashboardLayout
             header="Health"
         >
-            <div className="space-y-10">
-                <div className='flex justify-center'>
+            <div className="space-y-6">
+                <div className='flex justify-center mb-10'>
                     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
                         <PopoverTrigger asChild>
                             <Button
@@ -47,12 +48,13 @@ const HealthPage = () => {
                             />
                         </PopoverContent>
                     </Popover>
-
                 </div>
                 <DailyWaterSlider date={format(selectedDate, 'y-MM-dd')} />
                 <DailyWeightEntry date={format(selectedDate, 'y-MM-dd')} />
 
                 <WeightLineChart />
+
+                <WaterBarChart />
             </div>
         </DashboardLayout>
     );
