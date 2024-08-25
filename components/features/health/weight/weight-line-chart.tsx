@@ -15,7 +15,7 @@ import {
 import { colors } from '@/config/colors';
 import { ChartTimelineWithLabelsType } from '@/config/app';
 import { TimelineDropdown } from '../../chart/timeline-dropdown';
-import { useGetWeightChart } from "@/hooks/queries/use-get-weight-chart";
+import { useGetWeightChart } from "@/hooks/queries/health/weight/use-get-weight-chart";
 import { DEFAULT_WEIGHT_CHART_TIMELINE } from "@/config/health";
 import { Loader } from "@/components/ui/loader";
 

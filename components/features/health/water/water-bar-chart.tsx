@@ -17,7 +17,7 @@ import { ChartTimelineWithLabelsType } from '@/config/app';
 import { TimelineDropdown } from '../../chart/timeline-dropdown';
 import { DEFAULT_WATER_BAR_CHART_TIMELINE } from "@/config/health";
 import { Loader } from "@/components/ui/loader";
-import { useGetWaterBarChart } from "@/hooks/queries/use-get-water-bar-chart";
+import { useGetWaterBarChart } from "@/hooks/queries/health/water/use-get-water-bar-chart";
 
 const chartConfig = {
     value: {

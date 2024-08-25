@@ -17,7 +17,7 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import { colors } from "@/config/colors"
-import { useGetHabitPieChart } from "@/hooks/queries/use-get-habit-pie-chart"
+import { useGetHabitPieChart } from "@/hooks/queries/habits/use-get-habit-pie-chart"
 import { useMemo, useState } from "react"
 import { ChartTimelineType, chartTimelineWithLabels } from "@/config/app"
 import { Loader } from "@/components/ui/loader"

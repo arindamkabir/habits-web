@@ -4,7 +4,7 @@ import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawe
 import { HabitCard } from '@/components/features/habits/habit-card';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { Button } from '@/components/ui/button';
-import { useGetHabitList } from '@/hooks/queries/use-get-habits';
+import { useGetHabitList } from '@/hooks/queries/habits/use-get-habits';
 import useAppStore from '@/store/store';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
 import { DEFAULT_HABIT_LIST_DATES } from '@/config/habits';

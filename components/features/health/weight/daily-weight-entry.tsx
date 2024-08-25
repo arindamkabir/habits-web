@@ -1,7 +1,7 @@
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/components/ui/use-toast";
 import { useSaveWeightEntry } from "@/hooks/mutations/use-save-weight-entry";
-import { useGetWeightEntry } from "@/hooks/queries/use-get-weight-entry";
+import { useGetWeightEntry } from "@/hooks/queries/health/weight/use-get-weight-entry";
 import { useEffect, useState } from "react";
 
 type Props = {

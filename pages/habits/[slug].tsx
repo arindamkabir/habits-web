@@ -4,18 +4,18 @@ import { getCookie, setCookie } from 'cookies-next';
 import {
     DehydratedState, HydrationBoundary, QueryClient, dehydrate,
 } from '@tanstack/react-query';
-import { habitDetailsPrefetchQuery, useGetHabitDetails } from '@/hooks/queries/use-get-habit-details';
+import { habitDetailsPrefetchQuery, useGetHabitDetails } from '@/hooks/queries/habits/use-get-habit-details';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { HabitCalendar } from '@/components/features/habits/calendar/habit-calendar';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
-import { habitChartPrefetchQuery } from '@/hooks/queries/use-get-habit-chart';
+import { habitChartPrefetchQuery } from '@/hooks/queries/habits/use-get-habit-chart';
 import Head from 'next/head';
 import { HabitPieChart } from '@/components/features/habits/charts/habit-pie-chart';
-import { habitEntryListPrefetchQuery } from '@/hooks/queries/use-get-habit-entries';
+import { habitEntryListPrefetchQuery } from '@/hooks/queries/habits/use-get-habit-entries';
 import { DEFAULT_HABIT_BAR_CHART_TIMELINE, DEFAULT_HABIT_CALENDAR_MONTH, DEFAULT_HABIT_CALENDAR_YEAR, DEFAULT_HABIT_PIE_CHART_PERIOD } from '@/config/habits';
 import { MONTH_OPTIONS } from '@/config/app';
 import { formatDate, lastDayOfMonth } from 'date-fns';
-import { habitPieChartPrefetchQuery } from '@/hooks/queries/use-get-habit-pie-chart';
+import { habitPieChartPrefetchQuery } from '@/hooks/queries/habits/use-get-habit-pie-chart';
 import { HabitBarChart } from '@/components/features/habits/charts/habit-bar-chart';
 
 export const getServerSideProps = (async (context) => {

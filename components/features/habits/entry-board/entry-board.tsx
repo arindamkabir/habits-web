@@ -4,7 +4,7 @@ import DateRangeSelect from './date-range-select';
 import useAppStore from '@/store/store';
 import EntrySquare from './entry-square';
 import HabitPopover from '@/components/features/habits/modals/habit-popover';
-import { useGetHabitList } from '@/hooks/queries/use-get-habits';
+import { useGetHabitList } from '@/hooks/queries/habits/use-get-habits';
 
 function EntryBoard() {
     const showingDates = useAppStore((state) => state.showingDates);
@@ -40,15 +40,15 @@ function EntryBoard() {
                                 {
                                     showingDates.map((item) => (
                                         <EntrySquare
-                                          key={`day-of-week-habit-${item.toString()}-${habit.id}`}
-                                          habit={habit}
-                                          date={item}
+                                            key={`day-of-week-habit-${item.toString()}-${habit.id}`}
+                                            habit={habit}
+                                            date={item}
                                         />
                                     ))
                                 }
                                 <div />
                             </Fragment>
-                          ))
+                        ))
                     }
                 </div>
             </div>

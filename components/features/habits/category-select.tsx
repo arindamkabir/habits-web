@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/command';
 
 import { cn } from '@/utils/classNames';
-import { useGetAllCategories } from '@/hooks/queries/use-get-all-categories';
+import { useGetAllCategories } from '@/hooks/queries/habits/use-get-all-categories';
 import { FormControl } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 

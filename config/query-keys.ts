@@ -1,10 +1,10 @@
-import { HabitChartRequest } from "@/hooks/queries/use-get-habit-chart";
-import { HabitEntryListRequest } from "@/hooks/queries/use-get-habit-entries";
-import { HabitPieChartRequest } from "@/hooks/queries/use-get-habit-pie-chart";
-import { HabitListRequest } from "@/hooks/queries/use-get-habits";
-import { WaterBarChartRequest } from "@/hooks/queries/use-get-water-bar-chart";
-import { WeightChartRequest } from "@/hooks/queries/use-get-weight-chart";
-import { WeightEntryListRequest } from "@/hooks/queries/use-get-weight-entries";
+import { HabitChartRequest } from "@/hooks/queries/habits/use-get-habit-chart";
+import { HabitEntryListRequest } from "@/hooks/queries/habits/use-get-habit-entries";
+import { HabitPieChartRequest } from "@/hooks/queries/habits/use-get-habit-pie-chart";
+import { HabitListRequest } from "@/hooks/queries/habits/use-get-habits";
+import { WaterBarChartRequest } from "@/hooks/queries/health/water/use-get-water-bar-chart";
+import { WeightChartRequest } from "@/hooks/queries/health/weight/use-get-weight-chart";
+import { WeightEntryListRequest } from "@/hooks/queries/health/weight/use-get-weight-entries";
 
 export const HABIT_QUERY_KEYS = {
     all: ['habits'] as const,

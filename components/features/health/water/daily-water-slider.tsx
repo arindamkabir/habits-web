@@ -2,7 +2,7 @@ import { Slider } from '@/components/ui/slider';
 import { useToast } from '@/components/ui/use-toast';
 import { colors } from '@/config/colors';
 import { useSaveWaterEntry } from '@/hooks/mutations/use-save-water-entry';
-import { useGetWaterEntry } from '@/hooks/queries/use-get-water-entry';
+import { useGetWaterEntry } from '@/hooks/queries/health/water/use-get-water-entry';
 import { DropletIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 

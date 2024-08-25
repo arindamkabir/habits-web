@@ -1,6 +1,6 @@
 import { formatDate, lastDayOfMonth } from 'date-fns';
 import { useMemo, useState } from 'react';
-import { useGetHabitDetails } from '@/hooks/queries/use-get-habit-details';
+import { useGetHabitDetails } from '@/hooks/queries/habits/use-get-habit-details';
 import {
     Card,
     CardContent,
@@ -12,7 +12,7 @@ import { generateDatesByMonth, weekDayNames } from '@/utils/dates';
 import useAppStore from '@/store/store';
 import { HabitCalendarItem } from './habit-calendar-item';
 import { MonthType, MONTH_OPTIONS } from '@/config/app';
-import { useGetHabitEntryList } from '@/hooks/queries/use-get-habit-entries';
+import { useGetHabitEntryList } from '@/hooks/queries/habits/use-get-habit-entries';
 import { MonthDropdown } from './month-dropdown';
 import { YearDropdown } from './year-dropdown';
 import { DEFAULT_HABIT_CALENDAR_MONTH, DEFAULT_HABIT_CALENDAR_YEAR } from '@/config/habits';

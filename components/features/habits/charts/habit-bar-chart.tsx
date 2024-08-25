@@ -16,7 +16,7 @@ import { colors } from '@/config/colors';
 import { ChartTimelineWithLabelsType } from '@/config/app';
 import { TimelineDropdown } from '../../chart/timeline-dropdown';
 import { Loader } from "@/components/ui/loader";
-import { useGetHabitChart } from "@/hooks/queries/use-get-habit-chart";
+import { useGetHabitChart } from "@/hooks/queries/habits/use-get-habit-chart";
 import { DEFAULT_HABIT_BAR_CHART_TIMELINE } from "@/config/habits";
 
 const chartConfig = {
