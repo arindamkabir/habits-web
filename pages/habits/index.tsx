@@ -43,6 +43,18 @@ const HabitsPage = () => {
                         />
                     ))
                 }
+                {
+                    !isFetching && habitsList?.data.length === 0 && (
+                        <div className="space-y-4">
+                            <h1 className="text-center text-lg text-gray-500 dark:text-gray-300">
+                                No habits found.
+                            </h1>
+                            <h1 className="text-center text-gray-500 dark:text-gray-400">
+                                Add a habit to get started.
+                            </h1>
+                        </div>
+                    )
+                }
             </div>
             <AddHabitDrawer />
             <SaveEntryModal />

@@ -1,9 +1,9 @@
 import axios from "@/lib/axios";
-import { Category } from "@/types/Category";
+import { HabitCategory } from "@/types/HabitCategory";
 import { useQuery } from "@tanstack/react-query";
 
 type HabitCategoriesResponse = {
-    data: Category[]
+    data: HabitCategory[]
 }
 
 const QUERY_KEY = ['categories'];
@@ -13,7 +13,7 @@ const fetchCategories = async (): Promise<HabitCategoriesResponse> => {
     return response.data;
 };
 
-export const useGetAllCategories = () => {
+export const useGetAllHabitCategories = () => {
     return useQuery<HabitCategoriesResponse, Error>({
         queryKey: QUERY_KEY,
         queryFn: () => fetchCategories()

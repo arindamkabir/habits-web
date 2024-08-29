@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Category } from "./Category"
+import { HabitCategory } from "./HabitCategory";
 import { Entry } from "./Entry";
 import { storeHabitSchema } from "@/schemas/habit/store-habit";
 
@@ -11,7 +11,7 @@ export type Habit = {
     total_missed: number,
     total_missed_last_week: number,
     category_id: string,
-    category: Category,
+    category: HabitCategory,
     entry_type: "number" | "boolean",
     user_id: number,
     updated_at: string,
