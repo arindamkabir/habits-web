@@ -1,6 +1,6 @@
 import { PlusIcon } from 'lucide-react';
 import { useEffect } from 'react';
-import AddHabitDrawer from '@/components/features/habits/drawers/add-habit-drawer';
+import AddHabitModal from '@/components/features/habits/modals/add-habit-modal';
 import { HabitCard } from '@/components/features/habits/habit-card';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import { formatDate } from 'date-fns';
 
 const HabitsPage = () => {
     const setLoading = useAppStore((state) => state.setLoading);
-    const openAddHabitDrawer = useAppStore((state) => state.openAddHabitDrawer);
+    const openAddHabitModal = useAppStore((state) => state.openAddHabitModal);
 
     const { data: habitsList, isFetching } = useGetHabitList({
         start_date: formatDate(DEFAULT_HABIT_LIST_DATES[0], 'yyyy-MM-dd'),
@@ -28,7 +28,7 @@ const HabitsPage = () => {
             <div className="flex justify-end mb-6">
                 <Button
                     variant="secondary"
-                    onClick={() => openAddHabitDrawer(true)}
+                    onClick={() => openAddHabitModal(true)}
                 >
                     <PlusIcon className="h-5 w-5" />
                 </Button>
@@ -56,7 +56,7 @@ const HabitsPage = () => {
                     )
                 }
             </div>
-            <AddHabitDrawer />
+            <AddHabitModal />
             <SaveEntryModal />
         </DashboardLayout>
     );

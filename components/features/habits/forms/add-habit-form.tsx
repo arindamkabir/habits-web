@@ -11,18 +11,19 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import { useStoreHabit } from '@/hooks/mutations/use-store-habit';
 import useAppStore from '@/store/store';
 import CategorySelect from '../category-select';
 import { storeHabitSchema } from '@/schemas/habit/store-habit';
 import { useToast } from '@/components/ui/use-toast';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { HABIT_ENTRY_TYPE_OPTIONS } from '@/config/habits';
 
-function AddHabitForm() {
+const AddHabitForm = () => {
     const { toast } = useToast();
 
-    const openAddHabitDrawer = useAppStore((state) => state.openAddHabitDrawer);
+    const openAddHabitModal = useAppStore((state) => state.openAddHabitModal);
     const openAddCategoryDrawer = useAppStore((state) => state.openAddCategoryDrawer);
 
     const form = useForm<z.infer<typeof storeHabitSchema>>({
@@ -37,7 +38,7 @@ function AddHabitForm() {
 
     const { mutate, isPending: isCreating } = useStoreHabit(
         () => {
-            openAddHabitDrawer(false);
+            openAddHabitModal(false);
             toast({
                 title: 'Habit created successfully'
             });
@@ -101,35 +102,38 @@ function AddHabitForm() {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Entry Type</FormLabel>
-                            <FormControl>
-                                <RadioGroup
-                                    onValueChange={field.onChange}
-                                    defaultValue={field.value}
-                                    className="flex flex-col space-y-1"
-                                >
-                                    <FormItem className="flex items-center space-x-3 space-y-0">
-                                        <FormControl>
-                                            <RadioGroupItem value="boolean" />
-                                        </FormControl>
-                                        <FormLabel className="font-normal">
-                                            Yes/No
-                                        </FormLabel>
-                                    </FormItem>
-                                    <FormItem className="flex items-center space-x-3 space-y-0">
-                                        <FormControl>
-                                            <RadioGroupItem value="number" />
-                                        </FormControl>
-                                        <FormLabel className="font-normal">
-                                            Numeric
-                                        </FormLabel>
-                                    </FormItem>
-                                </RadioGroup>
-                            </FormControl>
+
+                            <ToggleGroup
+                                type="single"
+                                variant="outline"
+                                value={field.value}
+                                onValueChange={field.onChange}
+                                disabled={field.disabled}
+                                className='justify-start'
+                            >
+                                {
+                                    HABIT_ENTRY_TYPE_OPTIONS.map((item) => (
+                                        <ToggleGroupItem
+                                            key={`habit-create-form-entry-type-${item.value}`}
+                                            value={item.value}
+                                        >
+                                            {item.label}
+                                        </ToggleGroupItem>
+                                    ))
+                                }
+                            </ToggleGroup>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <Button type="submit" loading={isCreating}>Save</Button>
+
+                <Button
+                    type="submit"
+                    loading={isCreating}
+                    className='w-full'
+                >
+                    Save
+                </Button>
             </form>
         </Form>
     );

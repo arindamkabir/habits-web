@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button';
 import useAppStore from '@/store/store';
 
 function AddHabitButton() {
-    const openAddHabitDrawer = useAppStore((state) => state.openAddHabitDrawer);
+    const openAddHabitModal = useAppStore((state) => state.openAddHabitModal);
 
     return (
-        <Button type="button" onClick={() => openAddHabitDrawer(true)}>Add Habit</Button>
+        <Button type="button" onClick={() => openAddHabitModal(true)}>Add Habit</Button>
     );
 }
 

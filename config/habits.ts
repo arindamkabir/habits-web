@@ -6,6 +6,17 @@ export const DEFAULT_HABIT_LIST_DATES = eachDayOfInterval({
     end: Date.now(),
 });
 
+export const HABIT_ENTRY_TYPE_OPTIONS = [
+    {
+        label: 'Yes/No',
+        value: 'boolean',
+    },
+    {
+        label: 'Numbers',
+        value: 'number',
+    },
+]
+
 export const DEFAULT_HABIT_CALENDAR_MONTH = () => MONTH_OPTIONS[new Date().getMonth()];
 
 export const DEFAULT_HABIT_CALENDAR_YEAR = () => new Date().getFullYear();

@@ -3,7 +3,7 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import { StateCreator } from "zustand";
 
 const initialState = {
-    addHabitDrawerOpen: false,
+    addHabitModalOpen: false,
     addCategoryDrawerOpen: false,
     editHabitDrawerOpen: false,
     saveEntryModalOpen: false,
@@ -26,8 +26,8 @@ const createHabitSlice: StateCreator<
     HabitState
 > = (set) => ({
     ...initialState,
-    openAddHabitDrawer: (val: boolean) => {
-        set({ addHabitDrawerOpen: val });
+    openAddHabitModal: (val: boolean) => {
+        set({ addHabitModalOpen: val });
     },
     openEditHabitDrawer: (val: boolean) => {
         set({ editHabitDrawerOpen: val });

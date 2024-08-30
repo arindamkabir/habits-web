@@ -8,7 +8,7 @@ export type MiscState = {
 };
 
 export type HabitState = {
-    addHabitDrawerOpen: boolean;
+    addHabitModalOpen: boolean;
     editHabitDrawerOpen: boolean;
     addCategoryDrawerOpen: boolean;
     saveEntryModalOpen: boolean;
@@ -23,7 +23,7 @@ export type HabitState = {
         end_date: string;
     };
     showingDates: Date[];
-    openAddHabitDrawer: (val: boolean) => void;
+    openAddHabitModal: (val: boolean) => void;
     openEditHabitDrawer: (val: boolean) => void;
     openAddCategoryDrawer: (val: boolean) => void;
     openSaveEntryModal: (val: boolean) => void;
