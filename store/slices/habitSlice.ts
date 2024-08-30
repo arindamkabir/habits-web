@@ -5,7 +5,8 @@ import { StateCreator } from "zustand";
 const initialState = {
     addHabitModalOpen: false,
     addCategoryDrawerOpen: false,
-    editHabitDrawerOpen: false,
+    editHabitModalOpen: false,
+    editingHabit: null,
     saveEntryModalOpen: false,
     selectedHabitToEntry: null,
     showingDates: eachDayOfInterval({
@@ -29,8 +30,11 @@ const createHabitSlice: StateCreator<
     openAddHabitModal: (val: boolean) => {
         set({ addHabitModalOpen: val });
     },
-    openEditHabitDrawer: (val: boolean) => {
-        set({ editHabitDrawerOpen: val });
+    openEditHabitModal: (val: boolean) => {
+        set({ editHabitModalOpen: val });
+    },
+    setEditingHabit: (habit) => {
+        set({ editingHabit: habit });
     },
     openSaveEntryModal: (val: boolean) => {
         set({ saveEntryModalOpen: val });

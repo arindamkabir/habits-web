@@ -15,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useStoreHabit } from '@/hooks/mutations/use-store-habit';
 import useAppStore from '@/store/store';
 import CategorySelect from '../category-select';
-import { storeHabitSchema } from '@/schemas/habit/store-habit';
+import { saveHabitSchema } from '@/schemas/habit/save-habit';
 import { useToast } from '@/components/ui/use-toast';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { HABIT_ENTRY_TYPE_OPTIONS } from '@/config/habits';
@@ -26,8 +26,8 @@ const AddHabitForm = () => {
     const openAddHabitModal = useAppStore((state) => state.openAddHabitModal);
     const openAddCategoryDrawer = useAppStore((state) => state.openAddCategoryDrawer);
 
-    const form = useForm<z.infer<typeof storeHabitSchema>>({
-        resolver: zodResolver(storeHabitSchema),
+    const form = useForm<z.infer<typeof saveHabitSchema>>({
+        resolver: zodResolver(saveHabitSchema),
         defaultValues: {
             name: '',
             description: '',
@@ -45,7 +45,7 @@ const AddHabitForm = () => {
         },
     );
 
-    function onSubmit(values: z.infer<typeof storeHabitSchema>) {
+    function onSubmit(values: z.infer<typeof saveHabitSchema>) {
         mutate(values);
     }
 
@@ -132,7 +132,7 @@ const AddHabitForm = () => {
                     loading={isCreating}
                     className='w-full'
                 >
-                    Save
+                    Add
                 </Button>
             </form>
         </Form>

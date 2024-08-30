@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { HabitCategory } from "./HabitCategory";
 import { Entry } from "./Entry";
-import { storeHabitSchema } from "@/schemas/habit/store-habit";
+import { saveHabitSchema } from "@/schemas/habit/save-habit";
 
 export type Habit = {
     id: number
@@ -22,4 +22,6 @@ export type HabitWithEntries = Habit & {
     entries: Entry[]
 }
 
-export type StoreHabitRequest = z.infer<typeof storeHabitSchema>;
+export type StoreHabitRequest = z.infer<typeof saveHabitSchema>;
+
+export type UpdateHabitRequest = StoreHabitRequest & { id: number };
