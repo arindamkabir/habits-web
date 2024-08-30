@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/command';
 
 import { cn } from '@/utils/classNames';
-import { useGetAllCategories } from '@/hooks/queries/habits/use-get-all-categories';
+import { useGetAllHabitCategories } from '@/hooks/queries/habits/use-get-all-habit-categories';
 import { FormControl } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 
@@ -19,7 +19,7 @@ type CategorySelectProps = {
 
 function CategorySelect({ value, onSelect, exclude }: CategorySelectProps) {
     const [open, setOpen] = useState<boolean>(false);
-    const { data: categoriesData, isPending: isCategoriesPending } = useGetAllCategories();
+    const { data: categoriesData, isPending: isCategoriesPending } = useGetAllHabitCategories();
     const loopKey = uuid();
 
     const categories = useMemo(() => {
