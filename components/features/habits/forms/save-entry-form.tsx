@@ -8,19 +8,18 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from '@/components/ui/form';
 import {
     ToggleGroup,
     ToggleGroupItem,
 } from '@/components/ui/toggle-group';
-import { Textarea } from '@/components/ui/textarea';
 import useAppStore from '@/store/store';
 import { saveEntrySchema } from '@/schemas/habit/save-entry';
 import { useSaveEntry } from '@/hooks/mutations/use-save-entry';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import { Label } from '@/components/ui/label';
 
 function SaveEntryForm() {
     const { toast } = useToast();
@@ -59,59 +58,55 @@ function SaveEntryForm() {
             return;
         }
         form.setValue('entry', existingEntry?.entry || 0);
-        form.setValue('note', existingEntry?.note || '');
     }, [existingEntry, form]);
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                    control={form.control}
-                    name="entry"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Did you perform this habit on this day?</FormLabel>
-                            <FormControl>
-                                {
-                                    selectedHabitToEntry?.habit.entry_type === 'boolean' ? (
-                                        <div>
-                                            <ToggleGroup
-                                                type="single"
-                                                className="justify-start"
-                                                value={`${field.value}`}
-                                                onValueChange={field.onChange}
-                                            >
-                                                <ToggleGroupItem value="1">
-                                                    Yes
-                                                </ToggleGroupItem>
-                                                <ToggleGroupItem value="0">
-                                                    No
-                                                </ToggleGroupItem>
-                                            </ToggleGroup>
-                                        </div>
-                                    )
-                                        : <Input placeholder="Entry" {...field} />
-                                }
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="note"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Note</FormLabel>
-                            <FormControl>
-                                <Textarea placeholder="Note" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                <div className="grid grid-cols-3 items-center gap-4">
+                    <Label>Value</Label>
+                    <FormField
+                        control={form.control}
+                        name="entry"
+                        render={({ field }) => (
+                            <FormItem className='col-span-2'>
+                                <FormControl>
+                                    {
+                                        selectedHabitToEntry?.habit.entry_type === 'boolean' ? (
+                                            <div>
+                                                <ToggleGroup
+                                                    type="single"
+                                                    className="justify-start w-full"
+                                                    variant="outline"
+                                                    value={`${field.value}`}
+                                                    onValueChange={field.onChange}
+                                                >
+                                                    <ToggleGroupItem value="1" className='w-1/2'>
+                                                        Yes
+                                                    </ToggleGroupItem>
+                                                    <ToggleGroupItem value="0" className='w-1/2'>
+                                                        No
+                                                    </ToggleGroupItem>
+                                                </ToggleGroup>
+                                            </div>
+                                        )
+                                            : <Input placeholder="Entry" {...field} />
+                                    }
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
 
-                <Button type="submit" loading={isCreating}>Save</Button>
+
+                <Button
+                    type="submit"
+                    loading={isCreating}
+                    className='w-full'
+                >
+                    Save
+                </Button>
             </form>
         </Form>
     );
