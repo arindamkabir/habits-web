@@ -4,11 +4,9 @@ import { UpdateHabitRequest } from "@/types/Habit";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const updateHabit = async (data: UpdateHabitRequest) => {
-    const { id, ...payload } = data;
+    const { slug, ...payload } = data;
 
-    const response = await axios.put(`/api/habits/${id}`, {
-        data: payload
-    });
+    const response = await axios.put(`/api/habits/${slug}`, payload);
     return response;
 }
 

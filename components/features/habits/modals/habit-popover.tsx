@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { HabitWithEntries } from '@/types/Habit';
 import { Button } from '@/components/ui/button';
+import useAppStore from '@/store/store';
 
 type HabitPopoverProps = {
     habit: HabitWithEntries
@@ -10,28 +11,44 @@ type HabitPopoverProps = {
 function HabitPopover({ habit }: HabitPopoverProps) {
     const router = useRouter();
 
+    const openEditHabitModal = useAppStore((state) => state.openEditHabitModal);
+    const setEditingHabit = useAppStore((state) => state.setEditingHabit);
+
     return (
         <Popover>
             <PopoverTrigger className="hover:underline hover:underline-offset-3">{habit.name}</PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent align="start" >
                 <div className="space-y-1.5 mb-2">
                     <h1 className="font-semibold">{habit.name}</h1>
                     <p className="text-sm text-gray-500">{habit.description}</p>
-                    <p className="text-sm text-gray-200">
+                    <p className="text-sm text-gray-400">
+                        <span className="font-medium">Category: </span>
+                        {habit.category.name}
+                    </p>
+                    {/* TODO: TO BE IMPLEMENTED */}
+                    {/* <p className="text-sm text-gray-200">
                         <span className="font-medium">Missed: </span>
                         {habit.total_missed}
                     </p>
                     <p className="text-sm text-gray-200">
                         <span className="font-medium">Missed Last Week: </span>
                         {habit.total_missed_last_week}
-                    </p>
+                    </p> */}
                 </div>
-                <div className="flex justify-between items-center">
-                    <Button variant="link" className="px-0">Edit</Button>
+                <div className="space-y-2 pt-4">
+                    <Button
+                        className='w-full h-7'
+                        onClick={() => {
+                            setEditingHabit(habit);
+                            openEditHabitModal(true);
+                        }}
+                    >
+                        Edit
+                    </Button>
                     <Button
                         onClick={() => router.push(`/habits/${habit.slug}`)}
-                        variant="link"
-                        className="px-0"
+                        variant="secondary"
+                        className="w-full h-7"
                     >
                         View
                     </Button>

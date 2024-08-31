@@ -14,12 +14,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import useAppStore from '@/store/store';
 import CategorySelect from '../category-select';
-import { saveHabitSchema } from '@/schemas/habit/save-habit';
 import { useToast } from '@/components/ui/use-toast';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { HABIT_ENTRY_TYPE_OPTIONS } from '@/config/habits';
 import { useEffect } from 'react';
 import { useUpdateHabit } from '@/hooks/mutations/use-update-habit';
+import { updateHabitSchema } from '@/schemas/habit/update-habit';
 
 const EditHabitForm = () => {
     const { toast } = useToast();
@@ -28,8 +26,12 @@ const EditHabitForm = () => {
     const editingHabit = useAppStore((state) => state.editingHabit);
     const openAddCategoryDrawer = useAppStore((state) => state.openAddCategoryDrawer);
 
-    const form = useForm<z.infer<typeof saveHabitSchema>>({
-        resolver: zodResolver(saveHabitSchema),
+    const form = useForm<z.infer<typeof updateHabitSchema>>({
+        resolver: zodResolver(updateHabitSchema),
+        defaultValues: {
+            name: '',
+            description: '',
+        },
     });
 
     const { mutate, isPending: isCreating } = useUpdateHabit(
@@ -41,11 +43,11 @@ const EditHabitForm = () => {
         },
     );
 
-    function onSubmit(values: z.infer<typeof saveHabitSchema>) {
+    function onSubmit(values: z.infer<typeof updateHabitSchema>) {
         if (!editingHabit) return;
         mutate({
             ...values,
-            id: editingHabit.id,
+            slug: editingHabit.slug,
         });
     }
 
@@ -53,8 +55,7 @@ const EditHabitForm = () => {
         if (!editingHabit) return;
         form.setValue("name", editingHabit.name);
         form.setValue("category_id", Number(editingHabit.category_id));
-        form.setValue("description", editingHabit?.description ?? undefined);
-        form.setValue("entry_type", editingHabit.entry_type);
+        form.setValue("description", editingHabit?.description ?? '');
     }, [editingHabit, form]);
 
     return (
@@ -99,37 +100,6 @@ const EditHabitForm = () => {
                                 />
                                 <Button type="button" onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
                             </div>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="entry_type"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Entry Type</FormLabel>
-
-                            <ToggleGroup
-                                type="single"
-                                variant="outline"
-                                value={field.value}
-                                onValueChange={field.onChange}
-                                disabled={field.disabled}
-                                className='justify-start'
-                            >
-                                {
-                                    HABIT_ENTRY_TYPE_OPTIONS.map((item) => (
-                                        <ToggleGroupItem
-                                            key={`habit-create-form-entry-type-${item.value}`}
-                                            value={item.value}
-                                        >
-                                            {item.label}
-                                        </ToggleGroupItem>
-                                    ))
-                                }
-                            </ToggleGroup>
                             <FormMessage />
                         </FormItem>
                     )}

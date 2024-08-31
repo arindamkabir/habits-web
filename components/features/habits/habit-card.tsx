@@ -1,5 +1,4 @@
 import { formatDate } from 'date-fns';
-import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import {
     Card,
@@ -11,6 +10,7 @@ import { HabitWithEntries } from '@/types/Habit';
 import { cn } from '@/utils/classNames';
 import { HabitCalendarItem } from './calendar/habit-calendar-item';
 import useAppStore from '@/store/store';
+import HabitPopover from './modals/habit-popover';
 
 type HabitCardProps = {
     className?: string;
@@ -19,8 +19,6 @@ type HabitCardProps = {
 };
 
 export function HabitCard({ className = '', habit, dates }: HabitCardProps) {
-    const router = useRouter();
-
     const openSaveEntryModal = useAppStore((state) => state.openSaveEntryModal);
     const setSelectedHabitToEntry = useAppStore((state) => state.setSelectedHabitToEntry);
 
@@ -36,11 +34,14 @@ export function HabitCard({ className = '', habit, dates }: HabitCardProps) {
             className={cn('w-full md:w-[380px]', className)}
         >
             <CardHeader>
-                <CardTitle
+                {/* <CardTitle
                     onClick={() => router.push(`/habits/${habit.slug}`)}
                     className="cursor-pointer"
                 >
                     {habit.name}
+                </CardTitle> */}
+                <CardTitle>
+                    <HabitPopover habit={habit} />
                 </CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4">

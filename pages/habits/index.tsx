@@ -9,6 +9,7 @@ import useAppStore from '@/store/store';
 import SaveEntryModal from '@/components/features/habits/modals/save-entry-modal';
 import { DEFAULT_HABIT_LIST_DATES } from '@/config/habits';
 import { formatDate } from 'date-fns';
+import EditHabitModal from '@/components/features/habits/modals/edit-habit-modal';
 
 const HabitsPage = () => {
     const setLoading = useAppStore((state) => state.setLoading);
@@ -56,7 +57,9 @@ const HabitsPage = () => {
                     )
                 }
             </div>
+
             <AddHabitModal />
+            <EditHabitModal />
             <SaveEntryModal />
         </DashboardLayout>
     );
