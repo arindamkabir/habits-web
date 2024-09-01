@@ -24,7 +24,6 @@ const EditHabitForm = () => {
 
     const openEditHabitModal = useAppStore((state) => state.openEditHabitModal);
     const editingHabit = useAppStore((state) => state.editingHabit);
-    const openAddCategoryDrawer = useAppStore((state) => state.openAddCategoryDrawer);
 
     const form = useForm<z.infer<typeof updateHabitSchema>>({
         resolver: zodResolver(updateHabitSchema),
@@ -98,7 +97,6 @@ const EditHabitForm = () => {
                                     value={field.value}
                                     onSelect={(value) => form.setValue('category_id', value)}
                                 />
-                                <Button type="button" onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
                             </div>
                             <FormMessage />
                         </FormItem>

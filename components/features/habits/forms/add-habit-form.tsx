@@ -24,7 +24,6 @@ const AddHabitForm = () => {
     const { toast } = useToast();
 
     const openAddHabitModal = useAppStore((state) => state.openAddHabitModal);
-    const openAddCategoryDrawer = useAppStore((state) => state.openAddCategoryDrawer);
 
     const form = useForm<z.infer<typeof storeHabitSchema>>({
         resolver: zodResolver(storeHabitSchema),
@@ -87,7 +86,6 @@ const AddHabitForm = () => {
                                     value={field.value}
                                     onSelect={(value) => form.setValue('category_id', value)}
                                 />
-                                <Button type="button" onClick={() => openAddCategoryDrawer(true)}>Add Category</Button>
                             </div>
                             <FormMessage />
                         </FormItem>
