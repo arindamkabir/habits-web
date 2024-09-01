@@ -26,7 +26,7 @@ export function HabitCalendarItem({
         date: Date;
         habitEntry?: Entry | undefined;
     }) => {
-        if (entry.date.getMonth() !== currentMonth) return 'bg-zinc-950 text-zinc-950';
+        if (entry.date.getMonth() !== currentMonth) return 'bg-zinc-950 text-zinc-500';
         if (isAfter(entry.date, Date.now())) return 'bg-zinc-900 text-zinc-600';
         if (!entry.habitEntry) return 'bg-zinc-900 text-zinc-600';
         return entry.habitEntry
