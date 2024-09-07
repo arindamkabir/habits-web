@@ -1,22 +1,25 @@
+// {
+//   "parser": "@typescript-eslint/parser",
+//   "extends": [
+//     "eslint:recommended",
+//     "plugin:@typescript-eslint/recommended",
+//     "next/core-web-vitals"
+//   ],
+//   "parserOptions": {
+//     "project": "./tsconfig.json"
+//   },
+//   "rules": {
+//     "no-unused-vars": "warn",
+//     "no-multiple-empty-lines": "error",
+//     "react-hooks/rules-of-hooks": "error",
+//     "no-console": "error",
+//     "no-debugger": "error",
+//     "no-alert": "error",
+//     "no-undef": "warn",
+//     "no-trailing-spaces": "error",
+//     "no-multi-spaces": "error"
+//   }
+// }
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals"
-  ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
-  "rules": {
-    "no-unused-vars": "warn",
-    "no-multiple-empty-lines": "error",
-    "react-hooks/rules-of-hooks": "error",
-    "no-console": "error",
-    "no-debugger": "error",
-    "no-alert": "error",
-    "no-undef": "warn",
-    "no-trailing-spaces": "error",
-    "no-multi-spaces": "error"
-  }
+  "extends": "next/core-web-vitals"
 }
